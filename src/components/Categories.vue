@@ -47,17 +47,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.categories-wrapper {
+.categories-wrapper { 
+    position: relative; 
     display: flex; 
     justify-content: center; 
     align-items: center; 
     flex-wrap: wrap; 
     gap: 15px;
-    max-width: 60vw; 
+    max-width: 80vw; 
+    max-height: 15vh; 
+    overflow-y: scroll;
     margin: auto; 
     margin-top: 25px; 
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 14px;
+    border-bottom: 1px solid #525252; 
+    padding-bottom: 15px; 
 }
 
 .categories-item {

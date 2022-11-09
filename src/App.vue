@@ -28,4 +28,8 @@ body
   flex-direction: column; 
   background-color: black; 
 }
+
+::-webkit-scrollbar {
+  display: none; 
+} 
 </style>
