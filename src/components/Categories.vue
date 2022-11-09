@@ -1,17 +1,16 @@
 <template>
-    <div class="categories-wrapper">
-        <div class="categories-item">Избранное</div>
-        <div class="categories-item">Важное</div>
-        <div class="categories-item">Своя категория</div>
-        <div class="categories-item">Своя категория</div>
-        <div class="categories-item">Своя категория</div>
+    <div class="categories-wrapper"> 
+        <div class="categories-item-wrapper" v-for="categorie of categories" :key="categorie.id">
+            <div class="categories-item">{{categorie.title}}</div>
+        </div>
+
         <div class="categories-item" @click="toggleModal">Добавить</div>
         <Modal v-if="isShowModal" @close="toggleModal">
             <div class="modal-content-wrapper">
-                <input class="modal-input" type="text" placeholder="Введите название...">
-                <button class="add-categorie">Добавить</button>
+                <input class="modal-input" type="text" placeholder="Введите название..." v-model="addCathegorieTxt">
+                <button class="add-categorie" @click="addCategoriesItem">Добавить</button>
             </div>
-        </Modal>
+        </Modal> 
     </div>
 </template>
 
@@ -21,13 +20,21 @@ export default {
     name: 'Categories', 
     data() {
         return {
-            items: [], 
-            isShowModal: false
+            categories: [
+                {title: 'Избранное', id: 1},
+                {title: 'Важное', id: 2},
+            ], 
+            isShowModal: false, 
+            addCathegorieTxt: '' 
         }
     },
     methods: {
         addCategoriesItem() { 
-
+            this.categories.push({
+                title: this.addCathegorieTxt = '' ? this.addCathegorieTxt : 'Нет названия', 
+                id: Date.now()  
+            })
+            this.addCathegorieTxt = ''
         }, 
         toggleModal() {
             this.isShowModal = !this.isShowModal 
@@ -51,24 +58,23 @@ export default {
     margin-top: 25px; 
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 14px;
-
-    .categories-item {
-        padding: 6px 10px 6px 10px; 
-        background-color: #272727; 
-        color: white; 
-        border-radius: 13px; 
-        max-width: 30%; 
-        overflow: hidden; 
-        transition-property: background-color; 
-        transition-duration: 0.3s;
-
-        &:hover {
-            background-color: #525252;
-        } 
-    } 
-
-
 }
+
+.categories-item {
+    background-color: #272727; 
+    color: white; 
+    padding: 6px 10px 6px 10px; 
+    border-radius: 13px; 
+    overflow: hidden; 
+    transition-property: background-color; 
+    transition-duration: 0.3s;
+
+    &:hover {
+        background-color: #525252;
+    } 
+} 
+
+
 
 .modal-content-wrapper {
     display: flex; 
@@ -76,7 +82,7 @@ export default {
     align-items: center; 
     flex-direction: column; 
     gap: 10px; 
-    height: 28%; 
+    height: 50%; 
 
     .modal-input {
         background-color: #222222; 

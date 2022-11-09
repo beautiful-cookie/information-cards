@@ -21,10 +21,10 @@
     border-radius: 10px; 
     padding: 15px;
     width: 500px; 
-    height: 80vh; 
+    height: 40vh; 
     color: white;
     margin: auto; 
-    top: 10vh; 
+    top: 30vh; 
     left: auto; 
 
     .title-wrapper {
