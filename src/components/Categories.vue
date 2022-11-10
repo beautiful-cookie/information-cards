@@ -1,7 +1,12 @@
 <template>
     <div class="categories-wrapper"> 
         <div class="categories-item-wrapper" v-for="categorie of categories" :key="categorie.id">
-            <div class="categories-item">{{categorie.title}}</div>
+            <div class="categories-item">
+                <span>
+                    <i @click="deleteCategorie(categorie)" class="material-icons closeCross">close</i>
+                </span>
+                {{categorie.title}}
+            </div>
         </div>
 
         <div class="categories-item" @click="toggleModal">Добавить</div>
@@ -20,24 +25,45 @@ export default {
     name: 'Categories', 
     data() {
         return {
-            categories: [
-                {title: 'Избранное', id: 1},
-                {title: 'Важное', id: 2},
-            ], 
+            categories: null, 
             isShowModal: false, 
             addCathegorieTxt: '' 
         }
-    },
+    }, 
+    created() {
+        this.categories = this.getFromLocal().length > 0 ? this.getFromLocal() : this.getStartCategories()  
+        console.log(this.getFromLocal())
+    }, 
     methods: {
         addCategoriesItem() { 
             this.categories.push({
-                title: this.addCathegorieTxt = '' ? this.addCathegorieTxt : 'Нет названия', 
+                title: this.addCathegorieTxt.length > 0 ? this.addCathegorieTxt : 'Нет названия', 
                 id: Date.now()  
             })
-            this.addCathegorieTxt = ''
+            this.addCathegorieTxt = ''; 
+            this.saveInLocal() 
+        }, 
+        deleteCategorie(categorieElement) {
+            this.categories = this.categories.filter(categorie => categorie !== categorieElement) 
+            this.saveInLocal() 
         }, 
         toggleModal() {
             this.isShowModal = !this.isShowModal 
+        },
+        saveInLocal() {
+            localStorage.setItem('categories', JSON.stringify(this.categories))
+        }, 
+        getFromLocal() {
+            const storage = localStorage.getItem('categories') 
+            if (!storage) return [] 
+            return JSON.parse(storage) 
+        },
+        getStartCategories() {
+            return [
+                {title: 'Все', id: Date.now()}, 
+                {title: 'Избранное', id: Date.now() + 1},
+                {title: 'Важное', id: Date.now() + 2},
+            ] 
         }
     }, 
     components: {
@@ -66,6 +92,10 @@ export default {
 }
 
 .categories-item {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 5px; 
     background-color: #272727; 
     color: white; 
     padding: 6px 10px 6px 10px; 
@@ -77,6 +107,16 @@ export default {
     &:hover {
         background-color: #525252;
     } 
+
+    span {
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+    }
+
+    .material-icons.closeCross {
+        font-size: 14px;
+    }
 } 
 
 
