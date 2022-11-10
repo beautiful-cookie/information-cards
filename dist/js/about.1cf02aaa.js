@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkart_book"]=self["webpackChunkart_book"]||[]).push([[443],{5399:function(t,n,u){u.r(n),u.d(n,{default:function(){return i}});var s=function(){var t=this;t._self._c;return t._m(0)},a=[function(){var t=this,n=t._self._c;return n("div",{staticClass:"about"},[n("h1",[t._v("This is an about page")])])}],r=u(1001),e={},l=(0,r.Z)(e,s,a,!1,null,null,null),i=l.exports}}]);
+//# sourceMappingURL=about.1cf02aaa.js.map
