@@ -3,18 +3,18 @@
       <transition name="fade">
         <div v-if="show">
           <div class="card">
-            <div class="category-name-wrapper"><span class="empty-class"></span><span class="category-name">{Категория}</span></div>
-            <div class="image-wrapper"><img src="@/assets/testImg.jpg" alt="Ops.."></div>
-            <div class="title-wrapper"><span class="title">{Название}</span></div>
-            <div class="description">{Описание}</div>
-            <div class="url">{Url}</div>
+            <div class="category-name-wrapper"><span class="empty-class"></span><span class="category-name">{{card.category}}</span></div>
+            <div class="image-wrapper"><img :src="card.imgSrc" alt="Ops.."></div>
+            <h3><span class="title">{{card.title}}</span></h3>
+            <div class="description">{{card.description}}</div>
+            <div class="url"><h4>Url: {{card.url}}</h4></div>
           </div>
         </div>
       </transition>
 
 
       <summary @click="show = !show"> 
-        Название 1
+        {{card.title}}
       </summary>
     </details>
 </template>
@@ -24,6 +24,12 @@ export default {
   data() {
     return {
       show: false 
+    }
+  }, 
+  props: {
+    card: {
+      type: Object, 
+      required: true 
     }
   }
 }
@@ -109,6 +115,37 @@ summary {
     img {
       max-width: 100%; 
       max-height: 100%; 
+    }
+  }
+
+  h3 .title {
+    color: #c0c0c0; 
+    text-shadow: 0 0 1px white; 
+  }
+
+  .description {
+    color: #212121; 
+    border: 2px solid #424242 ; 
+    border-radius: 5px; 
+    padding: 10px; 
+    background: radial-gradient(#757575, #616161);
+    width: 90%; 
+    font-weight: 500;
+  } 
+
+  .url {
+    background-color: gray; 
+    border-radius: 10px; 
+    padding: 5px; 
+    width: 90%; 
+    color: #006172; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    transition-property: color; 
+    transition-duration: 0.3s; 
+
+    &:hover { 
+      color: #29B8DB; 
     }
   }
 } 
