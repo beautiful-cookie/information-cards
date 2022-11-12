@@ -32,7 +32,6 @@ export default {
     }, 
     created() {
         this.categories = this.getFromLocal().length > 0 ? this.getFromLocal() : this.getStartCategories()  
-        console.log(this.getFromLocal())
     }, 
     methods: {
         addCategoriesItem() { 
