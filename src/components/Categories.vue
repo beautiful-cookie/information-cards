@@ -46,6 +46,9 @@ export default {
             this.categories = this.categories.filter(categorie => categorie !== categorieElement) 
             this.saveInLocal() 
         }, 
+        filterCards() {
+
+        },
         toggleModal() {
             this.isShowModal = !this.isShowModal 
         },

@@ -15,7 +15,7 @@ export default {
   components: {
     Navbar,
     Categories 
-} 
+  } 
 }
 </script>
 

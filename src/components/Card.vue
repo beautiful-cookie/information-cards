@@ -124,11 +124,12 @@ summary {
   }
 
   .description {
-    color: #212121; 
+    color: #c0c0c0; 
     border: 2px solid #424242 ; 
+    text-align: start;
     border-radius: 5px; 
     padding: 10px; 
-    background: radial-gradient(#757575, #616161);
+    background-color: #212121;
     width: 90%; 
     font-weight: 500;
   } 
