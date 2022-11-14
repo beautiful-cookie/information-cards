@@ -91,14 +91,10 @@ summary {
     
     .category-name {
       flex: 20%; 
-      color: #747474; 
+      color: #cecdcd; 
       cursor: pointer; 
       transition-property: color;
-      transition-duration: 0.3s;
-
-      &:hover {
-        color: #c0c0c0;
-      }
+      transition-duration: 0.3s; 
     }
   } 
 
