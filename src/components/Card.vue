@@ -60,7 +60,7 @@ summary {
   transition-duration: 0.3s;
 
   &:hover {
-    color: #c0c0c0;
+    color: #dfdfdf;
   }
 }
 
