@@ -56,6 +56,7 @@ summary {
   list-style: none; 
   color: #747474; 
   cursor: pointer; 
+  font-family: 'Comfortaa', cursive; 
   transition-property: color;
   transition-duration: 0.3s;
 
@@ -93,6 +94,7 @@ summary {
       flex: 20%; 
       color: #cecdcd; 
       cursor: pointer; 
+      font-family: 'Comfortaa', cursive; 
       transition-property: color;
       transition-duration: 0.3s; 
     }
@@ -117,6 +119,7 @@ summary {
   h3 .title {
     color: #c0c0c0; 
     text-shadow: 0 0 1px white; 
+    font-family: 'Comfortaa', cursive; 
   }
 
   .description {
