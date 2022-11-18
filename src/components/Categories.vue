@@ -1,12 +1,12 @@
 <template>
     <div class="categories-wrapper"> 
         <div class="categories-item-wrapper" v-for="categorie of categories" :key="categorie.id">
-            <div class="categories-item">
+            <router-link class="categories-item" :to="'/' + categorie.title.toLowerCase()">
                 <span>
                     <i @click="deleteCategorie(categorie)" class="material-icons closeCross">close</i>
                 </span>
                 {{categorie.title}}
-            </div>
+            </router-link>
         </div>
 
         <div class="categories-item" @click="toggleModal">Добавить</div>
@@ -97,6 +97,7 @@ export default {
     gap: 5px; 
     background-color: #272727; 
     color: white; 
+    text-decoration: none;
     padding: 6px 10px 6px 10px; 
     border-radius: 13px; 
     overflow: hidden; 

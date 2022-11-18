@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/:categorie?',
     name: 'home',
     component: HomeView
   },
