@@ -42,7 +42,7 @@ export default {
   methods: {
       routesFilter() {
         this.showedCards = this.cards.filter(card => { 
-          if (this.$route.params.categorie == 'все') {
+          if (this.$route.params.categorie == 'все' || this.$route.params.categorie == undefined) {
             return true 
           }
           return card.category.toLowerCase() === this.$route.params.categorie  

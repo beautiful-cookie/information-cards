@@ -123,8 +123,8 @@ summary {
   }
 
   .description {
-    color: #c0c0c0; 
-    border: 2px solid #424242 ; 
+    color: #fafafa; 
+    border: 2px solid #424242; 
     text-align: start;
     border-radius: 5px; 
     padding: 10px; 
@@ -134,18 +134,19 @@ summary {
   } 
 
   .url {
-    background-color: gray; 
+    background-color: #212121; 
+    border: 2px solid #424242; 
     border-radius: 10px; 
     padding: 5px; 
     width: 90%; 
-    color: #006172; 
+    color: #1565c0; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
     transition-property: color; 
     transition-duration: 0.3s; 
 
     &:hover { 
-      color: #29B8DB; 
+      color: #1e88e5; 
     }
   }
 } 

@@ -3,7 +3,7 @@
         <div class="categories-item-wrapper" v-for="categorie of categories" :key="categorie.id">
             <router-link class="categories-item" :to="'/' + categorie.title.toLowerCase()">
                 <span>
-                    <i @click="deleteCategorie(categorie)" class="material-icons closeCross">close</i>
+                    <i @click.prevent.stop="deleteCategorie(categorie)" class="material-icons closeCross">close</i>
                 </span>
                 {{categorie.title}}
             </router-link>
