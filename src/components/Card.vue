@@ -7,7 +7,21 @@
             <div class="image-wrapper"><img :src="card.imgSrc" alt="Ops.."></div>
             <h3><span class="title">{{card.title}}</span></h3>
             <div class="description">{{card.description}}</div>
-            <div class="url"><h4>Url: {{card.url}}</h4></div>
+            <div class="url">
+              <div class="url-title-wrapper">
+                <span class="url-title">Links:</span>
+                <span class="empty-class"></span>
+              </div>
+              <ol>
+                <h4 v-for="url of card.urls">
+                  <li class="link">
+                    <a :href="url" target="_blank" class="link">
+                     {{url}}
+                    </a>
+                  </li>
+                </h4>
+              </ol>
+            </div>
           </div>
         </div>
       </transition>
@@ -73,13 +87,14 @@ summary {
   border: 1px solid white; 
   padding: 10px; 
   border-radius: 10px; 
+  background-color: #0f0f0f;
   box-shadow: 0 0 4px white; 
   max-width: 40%;
   max-height: 60%;
   gap: 10px; 
   margin-top: 20px;
   
-  .category-name-wrapper {
+  .category-name-wrapper, .url-title-wrapper {
     display: flex; 
     justify-content: space-between; 
     align-items: center;  
@@ -90,13 +105,12 @@ summary {
       flex: 80%; 
     } 
     
-    .category-name {
+    .category-name, .url-title {
       flex: 20%; 
       color: #cecdcd; 
       cursor: pointer; 
       font-family: 'Comfortaa', cursive; 
       transition-property: color;
-      transition-duration: 0.3s; 
     }
   } 
 
@@ -133,20 +147,40 @@ summary {
     font-weight: 500;
   } 
 
-  .url {
+  .url { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column; 
     background-color: #212121; 
     border: 2px solid #424242; 
     border-radius: 10px; 
     padding: 5px; 
     width: 90%; 
-    color: #1565c0; 
+    max-width: 90%;
+    overflow: hidden;  
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
-    transition-property: color; 
-    transition-duration: 0.3s; 
 
-    &:hover { 
-      color: #1e88e5; 
+    ol h4 {
+      display: flex; 
+      justify-content: start; 
+      align-items: center; 
+      gap: 5vh; 
+    }
+
+    .link { 
+      color: #1565c0; 
+      max-width: 25vw; 
+      text-decoration: none; 
+      overflow-wrap: break-word; 
+      text-align: start;
+      transition-property: color; 
+      transition-duration: 0.3s; 
+      
+      &:hover {  
+        color: #1e88e5; 
+      }   
     }
   }
 } 
