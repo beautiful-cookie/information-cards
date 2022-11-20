@@ -4,7 +4,7 @@
         <div v-if="show">
           <div class="card">
             <div class="category-name-wrapper"><span class="empty-class"></span><span class="category-name">{{card.category}}</span></div>
-            <div class="image-wrapper"><img :src="card.imgSrc" alt="Ops.."></div>
+            <div class="image-wrapper" v-if="showImg"><img :src="card.imgSrc" alt="Ops.."></div>
             <h3><span class="title">{{card.title}}</span></h3>
             <div class="description">{{card.description}}</div>
             <div class="url">
@@ -37,9 +37,13 @@
 export default {
   data() {
     return {
-      show: false 
+      show: false, 
+      showImg: false  
     }
   }, 
+  created() {
+    this.showImg = this.card.imgSrc ? true : false 
+  },
   props: {
     card: {
       type: Object, 
@@ -80,19 +84,20 @@ summary {
 }
 
 .card {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  flex-direction: column; 
-  border: 1px solid white; 
-  padding: 10px; 
-  border-radius: 10px; 
-  background-color: #0f0f0f;
-  box-shadow: 0 0 4px white; 
-  max-width: 40%;
-  max-height: 60%;
-  gap: 10px; 
-  margin-top: 20px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column; 
+    border: 1px solid white; 
+    padding: 10px; 
+    border-radius: 10px; 
+    background-color: #0f0f0f;
+    box-shadow: 0 0 4px white; 
+    min-width: 60vw; 
+    max-width: 40%;
+    max-height: 60%;
+    gap: 10px; 
+    margin-top: 20px;
   
   .category-name-wrapper, .url-title-wrapper {
     display: flex; 
@@ -143,7 +148,8 @@ summary {
     border-radius: 5px; 
     padding: 10px; 
     background-color: #212121;
-    width: 90%; 
+    min-width: 90%;
+    max-width: 90%; 
     font-weight: 500;
   } 
 
@@ -160,7 +166,6 @@ summary {
     max-width: 90%;
     overflow: hidden;  
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500; 
 
     ol h4 {
       display: flex; 
@@ -170,7 +175,7 @@ summary {
 
     .link-li {
       color: #1565c0; 
-      max-width: 25vw; 
+      max-width: 40vw; 
       overflow-wrap: break-word; 
       text-align: start; 
       position: relative; 
@@ -208,11 +213,16 @@ summary {
 
 @media screen and (max-width: 700px) {
   .card {
-    max-width: 60%;
-    max-height: 60%; 
+    max-width: 60vw;
   }
 }
 
+@media screen and (max-width: 600px) {
+  .card {
+    min-width: 80vw; 
+    max-width: 80vw;
+  }
+}
 
 
 </style>
