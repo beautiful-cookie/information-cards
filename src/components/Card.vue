@@ -9,12 +9,12 @@
             <div class="description">{{card.description}}</div>
             <div class="url">
               <div class="url-title-wrapper">
-                <span class="url-title">Links:</span>
+                <span class="url-title">Ссылки:</span>
                 <span class="empty-class"></span>
               </div>
               <ol>
                 <h4 v-for="url of card.urls">
-                  <li class="link">
+                  <li class="link-li">
                     <a :href="url" target="_blank" class="link">
                      {{url}}
                     </a>
@@ -160,28 +160,49 @@ summary {
     max-width: 90%;
     overflow: hidden;  
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 500;
+    font-weight: 500; 
 
     ol h4 {
       display: flex; 
       justify-content: start; 
       align-items: center; 
-      gap: 5vh; 
     }
 
-    .link { 
+    .link-li {
       color: #1565c0; 
       max-width: 25vw; 
-      text-decoration: none; 
       overflow-wrap: break-word; 
-      text-align: start;
+      text-align: start; 
+      position: relative; 
+      padding: 2px; 
+      margin-bottom: 10px;
+    }
+    .link { 
+      color: #2885f0; 
+      text-decoration: none; 
       transition-property: color; 
       transition-duration: 0.3s; 
       
       &:hover {  
-        color: #1e88e5; 
+        color: white; 
       }   
-    }
+
+      &::before {
+        content: ""; 
+        position: absolute; 
+        width: 100%; 
+        height: 2px; 
+        bottom: 0; 
+        left: 0; 
+        background-color: rgba(45, 129, 255, 0.5); 
+        transition-property: background-color, height; 
+        transition-duration: 0.3s; 
+      }
+      &:hover:before {
+        background-color: rgba(1, 88, 155, 0.3); 
+        height: 100%; 
+      }
+    } 
   }
 } 
 
