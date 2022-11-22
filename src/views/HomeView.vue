@@ -9,13 +9,16 @@
       
   </div> 
 
+  <AddCardVue /> 
+
   <footer></footer>
   </div>
 </template>
 
 
 <script> 
-import Card from '@/components/Card.vue'
+import Card from '@/components/Card.vue'; 
+import AddCardVue from '@/components/AddCard.vue' 
 
 export default {
   data() {
@@ -41,7 +44,8 @@ export default {
     this.routesFilter() 
   }, 
   components: {
-    Card
+    Card, 
+    AddCardVue 
   }, 
   watch: {
     $route() {
@@ -51,7 +55,7 @@ export default {
   methods: {
       routesFilter() {
         this.showedCards = this.cards.filter(card => { 
-          if (this.$route.params.categorie == 'все' || this.$route.params.categorie == undefined) {
+          if (this.$route.params.categorie == 'все' || this.$route.params.categorie == undefined || this.$route.params.categorie == 'information-cards') {
             return true 
           }
           return card.category.toLowerCase() === this.$route.params.categorie  
