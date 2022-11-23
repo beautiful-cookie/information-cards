@@ -1,6 +1,11 @@
 <template>
   <div class="addBtn-wrapper">
-    <i class="material-icons addPlus">add</i> 
+    <i class="material-icons addPlus" @click="show = !show">add</i> 
+    <AddCardModal v-if="show" @closeCardModal="toggleCardModal">
+      <div class="card-modal-content-wrapper">
+        <span></span>
+      </div>
+    </AddCardModal>  
   </div>
 </template>
 
@@ -33,6 +38,15 @@
 }
 }
 
+.card-modal-content-wrapper {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  flex-direction: column; 
+  gap: 10px; 
+  height: 50%; 
+}
+
 @media screen and (max-height: 600px) {
 .addBtn-wrapper { 
   width: 50px; 
@@ -44,3 +58,22 @@
 }
 }
 </style>
+
+<script>
+import AddCardModal from '@/components/AddCardModal.vue'
+export default { 
+  data() {
+    return {
+      show: false 
+    }
+  },
+  components: {
+    AddCardModal 
+  }, 
+  methods: {
+    toggleCardModal() {
+      this.show = !this.show 
+    } 
+  }
+}
+</script>
