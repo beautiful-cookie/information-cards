@@ -5,11 +5,11 @@
       :key="card.id" 
     >
 
-      <Card v-bind:card="card" /> 
+      <Card :card="card" />
       
   </div> 
 
-  <AddCardVue /> 
+  <AddCardVue @addCard="addCard" />
 
   <footer></footer>
   </div>
@@ -59,7 +59,10 @@ export default {
             return true 
           }
           return card.category.toLowerCase() === this.$route.params.categorie  
-        }) 
+        })
+      },
+      addCard(card) {
+        console.log(card)
       }
     } 
 

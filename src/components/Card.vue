@@ -13,8 +13,8 @@
                 <span class="empty-class"></span>
               </div>
               <ol>
-                <h4 v-for="url of card.urls">
-                  <li class="link-li">
+                <h4 :key="url" v-for="url of card.urls">
+                  <li  class="link-li">
                     <a :href="url" target="_blank" class="link">
                      {{url}}
                     </a>

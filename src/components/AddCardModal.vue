@@ -23,14 +23,18 @@
     width: 500px; 
     height: 500px; 
     color: white;
-    top: 0; 
-    left: auto; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 
     .title-wrapper {
         display: flex; 
         justify-content: space-between; 
         align-items: center; 
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Arial, Helvetica, sans-serif; 
+        padding-bottom: 5px;
+        border-bottom: 1px solid #666666; 
     }
 
     .content {
@@ -53,7 +57,13 @@
 
 @media screen and (max-width: 400px) {
     .card-modal-wrapper { 
-        width: 200px; 
+        width: 300px; 
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .card-modal-wrapper { 
+        width: 250px; 
     }
 }
 

@@ -31,7 +31,9 @@
         display: flex; 
         justify-content: space-between; 
         align-items: center; 
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Arial, Helvetica, sans-serif; 
+        padding-bottom: 5px;
+        border-bottom: 1px solid #666666; 
     }
 
     .content {
