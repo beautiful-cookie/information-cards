@@ -3,16 +3,20 @@
     <i class="material-icons addPlus" @click="show = !show">add</i> 
     <AddCardModal v-if="show" @closeCardModal="toggleCardModal">
       <div class="card-modal-content-wrapper">
+        <div class="input-image-wrapper">
+          <span><h3>Картинка</h3></span>
+          <input type="text" placeholder="Введите название..." v-model="inputImage">
+        </div>
         <div class="input-title-wrapper">
-          <h3>Название</h3>
+          <span><h3>Название</h3></span>
           <input type="text" placeholder="Введите название..." v-model="inputTitle">
         </div>
         <div class="input-description-wrapper">
-          <h3>Описание</h3>
+          <span><h3>Описание</h3></span>
           <input type="text" placeholder="Введите описание..." v-model="inputDescription">
         </div>
         <div class="input-urls-wrapper">
-          <h3>Ссылки</h3>
+          <span><h3>Ссылки</h3></span>
           <input type="text" placeholder="Введите ссылки..." v-model="inputUrls">
         </div>
         <div class="choose-category-wrapper">
@@ -25,6 +29,14 @@
 </template>
 
 <style lang="scss" scoped> 
+
+span {
+  display: flex; 
+  justify-content: start;
+  align-items: center; 
+  width: 100%; 
+}
+
 .addBtn-wrapper {
   position: fixed;
   display: flex;
@@ -59,12 +71,12 @@
   align-items: center; 
   flex-direction: column; 
   gap: 20px; 
-  height: 50%;
+  max-height: 100%;
   padding: 5px;
   width: 100%; 
-  margin-top: 10vh; 
+  margin-top: 20px; 
 
-  .input-title-wrapper, .input-description-wrapper, .input-urls-wrapper {
+  .input-title-wrapper, .input-description-wrapper, .input-urls-wrapper, .input-image-wrapper {
     display: flex; 
     justify-content: center;
     align-items: center; 
@@ -74,7 +86,7 @@
 
     input {
       background-color: #222222;
-      padding: 10px;
+      padding: 5px 10px 5px 10px;
       color: white;
       border: 1px solid #818181;
       border-radius: 10px;
@@ -122,7 +134,9 @@ export default {
       show: false,
       inputTitle: '',
       inputDescription: '',
-      inputUrls: ''
+      inputUrls: '', 
+      inputImage: '', 
+      inputCategorie: '' 
     }
   },
   components: {
@@ -133,7 +147,7 @@ export default {
       this.show = !this.show 
     },
     addCard() {
-      this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, urls: this.inputUrls})
+      this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, urls: this.inputUrls, category: this.inputCategorie, imgSrc: this.inputImage})
     }
   }
 }

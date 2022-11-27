@@ -62,6 +62,13 @@ export default {
         })
       },
       addCard(card) {
+        this.cards.unshift(
+          {
+            category: card.category, imgSrc: card.imgSrc, 
+            title: card.title, description: card.description, 
+            urls: card.urls, id: Date.now() + 1
+          }
+        )
         console.log(card)
       }
     } 
