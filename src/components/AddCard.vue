@@ -17,7 +17,10 @@
         </div>
         <div class="input-urls-wrapper">
           <span><h3>Ссылки</h3></span>
-          <input type="text" placeholder="Введите ссылки..." v-model="inputUrls">
+          <div class="input-button-url-wrapper">
+            <input type="text" placeholder="Введите ссылки..." v-model="inputUrls">
+            <div class="urls-button"><i class="material-icons addPlusUrls">add</i></div>
+          </div>
         </div>
         <div class="choose-category-wrapper">
 
@@ -59,10 +62,10 @@ span {
     color: rgba(255, 255, 255, 1); 
   }
 
-.material-icons.addPlus {
-  font-size: 40px; 
-  color: rgba(255, 255, 255, 0.3); 
-}
+  .material-icons.addPlus {
+    font-size: 40px; 
+    color: rgba(255, 255, 255, 0.3); 
+  }
 }
 
 .card-modal-content-wrapper {
@@ -94,6 +97,14 @@ span {
     }
   }
 
+  .input-button-url-wrapper {
+    display: flex; 
+    justify-content: start; 
+    align-items: center; 
+    gap: 5px; 
+    width: 100%; 
+  }
+
 
   .add-card-button {
     background-color: transparent;
@@ -110,6 +121,30 @@ span {
     &:hover {
       background-color: #7c7c7c;
       border-color: #9e9e9e;
+    }
+    
+  }
+
+  .urls-button {
+    background-color: transparent;
+    color: white;
+    padding: 3px;
+    width: 15%;
+    border: 2px solid rgba(85, 85, 85, 0.502);
+    border-radius: 1px;
+    transition-property: background-color, border;
+    transition-duration: 0.3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+    &:hover {
+      background-color: #7c7c7c;
+      border-color: #9e9e9e;
+    }
+
+    .material-icons.addPlusUrls {
+      font-size: 15px; 
+      color: white; 
     }
   }
 }
