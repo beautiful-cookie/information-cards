@@ -3,33 +3,45 @@
     <i class="material-icons addPlus" @click="show = !show">add</i> 
     <AddCardModal v-if="show" @closeCardModal="toggleCardModal">
       <div class="card-modal-content-wrapper">
+
         <div class="input-image-wrapper">
           <span><h3>Картинка</h3></span>
           <input type="text" placeholder="Введите название..." v-model="inputImage">
         </div>
+
         <div class="input-title-wrapper">
           <span><h3>Название</h3></span>
           <input type="text" placeholder="Введите название..." v-model="inputTitle">
         </div>
+
         <div class="input-description-wrapper">
           <span><h3>Описание</h3></span>
           <input type="text" placeholder="Введите описание..." v-model="inputDescription">
         </div>
+
         <div class="input-urls-wrapper">
           <span><h3>Ссылки</h3></span>
           <div class="input-button-url-wrapper">
             <input type="text" placeholder="Введите ссылки..." v-model="inputUrls">
-            <div class="urls-button"><i class="material-icons addPlusUrls">add</i></div>
           </div>
         </div>
-        <div class="choose-category-wrapper">
 
+        <div class="choose-category-wrapper">
+          <div class="choose-category-content">
+            <span><h3 @click="toggleShowChooseCategory">Выбрать категорию</h3></span>
+            <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
+              <li class="choose-categories-list-item">Test 1</li>
+              <li class="choose-categories-list-item">Test 2</li> 
+            </ol>
+          </div>
         </div>
+
         <button class="add-card-button" @click="addCard">Добавить</button>
       </div>
     </AddCardModal>  
-  </div>
+  </div> 
 </template>
+
 
 <style lang="scss" scoped> 
 
@@ -95,6 +107,42 @@ span {
       border-radius: 10px;
       width: 100%;
     }
+  }
+
+  .choose-category-wrapper { 
+    display: flex; 
+    justify-content: start;
+    align-items: center; 
+    flex-direction: column; 
+
+    width: 70%; 
+
+    .choose-category-content { 
+      display: flex; 
+      justify-content: start;
+      align-items: center; 
+      flex-direction: column;  
+      width: 100%; 
+
+      h3 { 
+          font-size: 14.5px; 
+          padding: 7px; 
+          border-radius: 5px;
+          color: #cecdcd; 
+          border: 2px solid #3f3f3f; 
+          background-color: #72727283; 
+          transition-property: background-color; 
+          transition-duration: 0.3s;
+
+          &:hover {
+            background-color: #96969683; 
+          }
+        }
+    }
+  }
+
+  .choose-categories-list-wpapper {
+
   }
 
   .input-button-url-wrapper {
@@ -166,24 +214,28 @@ import AddCardModal from '@/components/AddCardModal.vue'
 export default { 
   data() {
     return {
-      show: false,
+      show: false, 
+      showChooseCategory: false, 
       inputTitle: '',
       inputDescription: '',
       inputUrls: '', 
       inputImage: '', 
       inputCategorie: '' 
     }
-  },
+  }, 
   components: {
     AddCardModal 
   }, 
   methods: {
     toggleCardModal() {
       this.show = !this.show 
-    },
+    }, 
+    toggleShowChooseCategory() {
+      this.showChooseCategory = !this.showChooseCategory 
+    }, 
     addCard() {
       this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, urls: this.inputUrls, category: this.inputCategorie, imgSrc: this.inputImage})
-    }
+    }, 
   }
 }
 </script>
