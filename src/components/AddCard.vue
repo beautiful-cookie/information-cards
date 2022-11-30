@@ -28,11 +28,15 @@
 
         <div class="choose-category-wrapper">
           <div class="choose-category-content">
-            <span><h3 @click="toggleShowChooseCategory">Выбрать категорию</h3></span>
-            <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
-              <li class="choose-categories-list-item">Test 1</li>
-              <li class="choose-categories-list-item">Test 2</li> 
-            </ol>
+            <span>
+              <h3 @click="toggleShowChooseCategory">Выбрать категорию</h3>
+              <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
+                <li class="choose-categories-list-item">Test 1</li>
+                <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
+                <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
+                <li class="choose-categories-list-item">Test 1</li> 
+              </ol>
+            </span> 
           </div>
         </div>
 
@@ -49,6 +53,7 @@ span {
   display: flex; 
   justify-content: start;
   align-items: center; 
+  flex-direction: column;
   width: 100%; 
 }
 
@@ -138,12 +143,38 @@ span {
             background-color: #96969683; 
           }
         }
+
+        .choose-categories-list-wpapper {
+          display: flex; 
+          justify-content: start; 
+          align-items: center;
+          flex-direction: column; 
+          width: auto; 
+          margin-top: 10px;
+
+          .choose-categories-list-item {
+            top: 0; 
+            background-color: #2b2b2b;
+            color: #cecdcd; 
+            padding: 5px 10px 5px 10px;
+            width: 100%; 
+            border: 1px solid #7c7c7c; 
+            border-top: 0.5px solid #7c7c7c; 
+            border-bottom: 0.5px solid #7c7c7c; 
+            overflow: hidden; 
+            max-width: 70%; 
+            transition-property: background-color; 
+            transition-duration: 0.3s;
+
+            &:hover {
+              background-color: #6b6b6b;
+            }
+          }
+        }
     }
   }
 
-  .choose-categories-list-wpapper {
 
-  }
 
   .input-button-url-wrapper {
     display: flex; 
@@ -214,7 +245,7 @@ import AddCardModal from '@/components/AddCardModal.vue'
 export default { 
   data() {
     return {
-      show: false, 
+      show: true, 
       showChooseCategory: false, 
       inputTitle: '',
       inputDescription: '',
