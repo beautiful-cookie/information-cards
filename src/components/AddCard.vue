@@ -34,6 +34,7 @@
                 <li class="choose-categories-list-item">Test 1</li>
                 <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
                 <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
+                <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
                 <li class="choose-categories-list-item">Test 1</li> 
               </ol>
             </span> 
@@ -155,7 +156,7 @@ span {
           .choose-categories-list-item {
             top: 0; 
             background-color: #2b2b2b;
-            color: #cecdcd; 
+            color: #dfdfdf; 
             padding: 5px 10px 5px 10px;
             width: 100%; 
             border: 1px solid #7c7c7c; 
