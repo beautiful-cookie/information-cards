@@ -30,13 +30,11 @@
           <div class="choose-category-content">
             <span>
               <h3 @click="toggleShowChooseCategory">Выбрать категорию</h3>
-              <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
-                <li class="choose-categories-list-item">Test 1</li>
-                <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
-                <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
-                <li class="choose-categories-list-item">Test 2Test 2Test 2Test 2Test 2</li> 
-                <li class="choose-categories-list-item">Test 1</li> 
-              </ol>
+              <div v-for="categorie of categories" :key="categorie.id">
+                <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
+                  <li class="choose-categories-list-item">{{categorie.title}}</li>
+                </ol>
+              </div>
             </span> 
           </div>
         </div>
@@ -51,6 +49,7 @@
 <style lang="scss" scoped> 
 
 span {
+  position: relative;
   display: flex; 
   justify-content: start;
   align-items: center; 
@@ -91,8 +90,8 @@ span {
   justify-content: center; 
   align-items: center; 
   flex-direction: column; 
-  gap: 20px; 
-  max-height: 100%;
+  gap: 20px;
+  max-height: 85%;
   padding: 5px;
   width: 100%; 
   margin-top: 20px; 
@@ -102,7 +101,7 @@ span {
     justify-content: center;
     align-items: center; 
     flex-direction: column;
-    gap: 2vh; 
+    gap: 10px;
     width: 70%; 
 
     input {
@@ -130,8 +129,8 @@ span {
       flex-direction: column;  
       width: 100%; 
 
-      h3 { 
-          font-size: 14.5px; 
+      h3 {
+          font-size: 14px;
           padding: 7px; 
           border-radius: 5px;
           color: #cecdcd; 
@@ -146,11 +145,14 @@ span {
         }
 
         .choose-categories-list-wpapper {
+          position: absolute;
+          top: 30px;
+          left: 0;
           display: flex; 
           justify-content: start; 
           align-items: center;
           flex-direction: column; 
-          width: auto; 
+          width: 100%;
           margin-top: 10px;
 
           .choose-categories-list-item {
@@ -247,14 +249,19 @@ export default {
   data() {
     return {
       show: true, 
-      showChooseCategory: false, 
+      showChooseCategory: false,
+      categories: null,
       inputTitle: '',
       inputDescription: '',
       inputUrls: '', 
       inputImage: '', 
       inputCategorie: '' 
     }
-  }, 
+  },
+  created() {
+    this.categories = this.getFromLocal()
+    console.log(this.getFromLocal())
+  },
   components: {
     AddCardModal 
   }, 
@@ -267,7 +274,12 @@ export default {
     }, 
     addCard() {
       this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, urls: this.inputUrls, category: this.inputCategorie, imgSrc: this.inputImage})
-    }, 
+    },
+    getFromLocal() {
+      const storage = localStorage.getItem('categories')
+      if (!storage) return []
+      return JSON.parse(storage)
+    }
   }
 }
 </script>

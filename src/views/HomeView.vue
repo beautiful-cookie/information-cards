@@ -69,7 +69,6 @@ export default {
             urls: card.urls, id: Date.now() + 1
           }
         )
-        console.log(card)
       }
     } 
 
