@@ -31,7 +31,8 @@ export default {
         }
     }, 
     created() {
-        this.categories = this.getFromLocal().length > 0 ? this.getFromLocal() : this.getStartCategories()  
+        this.categories = this.getFromLocal().length > 0 ? this.getFromLocal() : this.getStartCategories() 
+        this.saveInLocal() 
     }, 
     methods: {
         addCategoriesItem() { 

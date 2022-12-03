@@ -1,6 +1,6 @@
 <template>
   <div class="addBtn-wrapper">
-    <i class="material-icons addPlus" @click="show = !show">add</i> 
+    <i class="material-icons addPlus" @click="show = !show, showChooseCategory = false">add</i> 
     <AddCardModal v-if="show" @closeCardModal="toggleCardModal">
       <div class="card-modal-content-wrapper">
 
@@ -30,11 +30,13 @@
           <div class="choose-category-content">
             <span>
               <h3 @click="toggleShowChooseCategory">Выбрать категорию</h3>
-              <div v-for="categorie of categories" :key="categorie.id">
-                <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
-                  <li class="choose-categories-list-item">{{categorie.title}}</li>
-                </ol>
-              </div>
+              <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
+                <li v-for="categorie of categories" :key="categorie.id"
+                 class="choose-categories-list-item"
+                 >
+                 {{categorie.title}}
+                </li>
+              </ol>
             </span> 
           </div>
         </div>
@@ -150,10 +152,12 @@ span {
           left: 0;
           display: flex; 
           justify-content: start; 
-          align-items: center;
+          align-items: center; 
           flex-direction: column; 
           width: 100%;
-          margin-top: 10px;
+          margin-top: 10px; 
+          max-height: 10vw; 
+          overflow: scroll; 
 
           .choose-categories-list-item {
             top: 0; 
@@ -248,7 +252,7 @@ import AddCardModal from '@/components/AddCardModal.vue'
 export default { 
   data() {
     return {
-      show: true, 
+      show: false, 
       showChooseCategory: false,
       categories: null,
       inputTitle: '',
@@ -260,8 +264,12 @@ export default {
   },
   created() {
     this.categories = this.getFromLocal()
-    console.log(this.getFromLocal())
-  },
+  }, 
+  watch: {
+    showChooseCategory() {
+      this.categories = this.getFromLocal() 
+    }
+  }, 
   components: {
     AddCardModal 
   }, 
@@ -277,7 +285,7 @@ export default {
     },
     getFromLocal() {
       const storage = localStorage.getItem('categories')
-      if (!storage) return []
+      if (!storage) return [] 
       return JSON.parse(storage)
     }
   }
