@@ -29,10 +29,10 @@
         <div class="choose-category-wrapper">
           <div class="choose-category-content">
             <span>
-              <h3 @click="toggleShowChooseCategory">Выбрать категорию</h3>
+              <input type="button" class="chooseCategoryButton" @click="toggleShowChooseCategory" v-model="choosedCategory">
               <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
                 <li v-for="categorie of categories" :key="categorie.id"
-                 class="choose-categories-list-item"
+                 class="choose-categories-list-item" @click="chooseCategory(categorie.title)"
                  >
                  {{categorie.title}}
                 </li>
@@ -131,10 +131,12 @@ span {
       flex-direction: column;  
       width: 100%; 
 
-      h3 {
+      .chooseCategoryButton {
           font-size: 14px;
           padding: 7px; 
-          border-radius: 5px;
+          border-radius: 5px; 
+          font-size: 15px; 
+          font-weight: bolder; 
           color: #cecdcd; 
           border: 2px solid #3f3f3f; 
           background-color: #72727283; 
@@ -156,7 +158,7 @@ span {
           flex-direction: column; 
           width: 100%;
           margin-top: 10px; 
-          max-height: 10vw; 
+          max-height: 300%; 
           overflow: scroll; 
 
           .choose-categories-list-item {
@@ -170,12 +172,13 @@ span {
             border-bottom: 0.5px solid #7c7c7c; 
             overflow: hidden; 
             max-width: 70%; 
+            min-height: 30px; 
             transition-property: background-color; 
             transition-duration: 0.3s;
 
             &:hover {
               background-color: #6b6b6b;
-            }
+            } 
           }
         }
     }
@@ -254,7 +257,8 @@ export default {
     return {
       show: false, 
       showChooseCategory: false,
-      categories: null,
+      categories: null, 
+      choosedCategory: 'Выбрать категорию', 
       inputTitle: '',
       inputDescription: '',
       inputUrls: '', 
@@ -282,7 +286,11 @@ export default {
     }, 
     addCard() {
       this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, urls: this.inputUrls, category: this.inputCategorie, imgSrc: this.inputImage})
-    },
+    }, 
+    chooseCategory(title) {
+      this.choosedCategory = title 
+      this.showChooseCategory = false 
+    }, 
     getFromLocal() {
       const storage = localStorage.getItem('categories')
       if (!storage) return [] 

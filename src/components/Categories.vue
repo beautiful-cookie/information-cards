@@ -36,10 +36,12 @@ export default {
     }, 
     methods: {
         addCategoriesItem() { 
-            this.categories.push({
-                title: this.addCathegorieTxt.length > 0 ? this.addCathegorieTxt : 'Нет названия', 
+            if (this.addCathegorieTxt) { 
+                this.categories.push({ 
+                title: this.addCathegorieTxt, 
                 id: Date.now()  
-            })
+              })
+            }
             this.addCathegorieTxt = ''; 
             this.saveInLocal() 
         }, 
