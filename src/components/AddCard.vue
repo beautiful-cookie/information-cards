@@ -30,13 +30,15 @@
           <div class="choose-category-content">
             <span>
               <input type="button" class="chooseCategoryButton" @click="toggleShowChooseCategory" v-model="choosedCategory">
-              <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
-                <li v-for="categorie of categories" :key="categorie.id"
-                 class="choose-categories-list-item" @click="chooseCategory(categorie.title)"
-                 >
-                 {{categorie.title}}
-                </li>
-              </ol>
+              <transition name="fade">
+                  <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
+                    <li v-for="categorie of categories" :key="categorie.id"
+                    class="choose-categories-list-item" @click="chooseCategory(categorie.title)"
+                    >
+                    {{categorie.title}}
+                    </li>
+                </ol>
+              </transition>
             </span> 
           </div>
         </div>
@@ -49,7 +51,12 @@
 
 
 <style lang="scss" scoped> 
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 span {
   position: relative;
   display: flex; 
@@ -285,10 +292,14 @@ export default {
       this.showChooseCategory = !this.showChooseCategory 
     }, 
     addCard() {
-      this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, urls: this.inputUrls, category: this.inputCategorie, imgSrc: this.inputImage})
+      this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, 
+                             urls: this.inputUrls, 
+                             category: this.inputCategorie == 'Выбрать категорию' ? '' : this.inputCategorie, 
+                             imgSrc: this.inputImage})
     }, 
     chooseCategory(title) {
       this.choosedCategory = title 
+      this.inputCategorie = title 
       this.showChooseCategory = false 
     }, 
     getFromLocal() {
