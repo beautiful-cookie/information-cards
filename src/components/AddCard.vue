@@ -5,37 +5,37 @@
       <div class="card-modal-content-wrapper">
 
         <div class="input-image-wrapper">
-          <span><h3>Картинка</h3></span>
-          <input type="text" placeholder="Введите название..." v-model="inputImage">
+          <div class="image-wrapper"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wallon.ru%2F_ph%2F14%2F282289135.jpg%3F1586789285&f=1&nofb=1&ipt=9f5b67c9de5a563c710d6493b562916cd466b249b5e670976d05eb0143ae187c&ipo=images" alt="Ops.."></div>
+          <input type="file" class="inputImage" value="Выберете картинку" />
         </div>
 
         <div class="input-title-wrapper">
-          <span><h3>Название</h3></span>
+          <span><h3>Название:</h3></span>
           <input type="text" placeholder="Введите название..." v-model="inputTitle">
         </div>
 
         <div class="input-description-wrapper">
-          <span><h3>Описание</h3></span>
+          <span><h3>Описание:</h3></span>
           <input type="text" placeholder="Введите описание..." v-model="inputDescription">
         </div>
 
         <div class="input-urls-wrapper">
-          <span><h3>Ссылки</h3></span>
+          <span><h3>Ссылки:</h3></span>
           <div class="input-button-url-wrapper">
-            <input type="text" placeholder="Введите ссылки..." v-model="inputUrls">
+            <input type="url" placeholder="Введите ссылки..." v-model="inputUrls">
           </div>
-        </div>
+        </div> 
 
         <div class="choose-category-wrapper">
           <div class="choose-category-content">
-            <span>
+            <span class="category-div">
               <input type="button" class="chooseCategoryButton" @click="toggleShowChooseCategory" v-model="choosedCategory">
               <transition name="fade">
                   <ol class="choose-categories-list-wpapper" v-if="showChooseCategory">
                     <li v-for="categorie of categories" :key="categorie.id"
-                    class="choose-categories-list-item" @click="chooseCategory(categorie.title)"
-                    >
-                    {{categorie.title}}
+                      class="choose-categories-list-item" @click="chooseCategory(categorie.title)"
+                      >
+                      {{categorie.title}}
                     </li>
                 </ol>
               </transition>
@@ -58,6 +58,11 @@
   opacity: 0;
 }
 span {
+  position: relative;
+  width: 70%;  
+  text-align: start; 
+}
+.category-div {
   position: relative;
   display: flex; 
   justify-content: start;
@@ -96,7 +101,6 @@ span {
 
 .card-modal-content-wrapper {
   display: flex; 
-  justify-content: center; 
   align-items: center; 
   flex-direction: column; 
   gap: 20px;
@@ -104,13 +108,12 @@ span {
   padding: 5px;
   width: 100%; 
   margin-top: 20px; 
+  overflow: scroll;
 
   .input-title-wrapper, .input-description-wrapper, .input-urls-wrapper, .input-image-wrapper {
     display: flex; 
-    justify-content: center;
+    justify-content: start;
     align-items: center; 
-    flex-direction: column;
-    gap: 10px;
     width: 70%; 
 
     input {
@@ -120,7 +123,50 @@ span {
       border: 1px solid #818181;
       border-radius: 10px;
       width: 100%;
+    } 
+
+    .inputImage {
+      background-color: transparent;
+      color: white;
+      padding: 10px;
+      width: 70%;
+      border: 2px solid rgba(85, 85, 85, 0.502);
+      border-radius: 5px;
+      transition-property: background-color, border;
+      transition-duration: 0.3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      text-align: center; 
+      cursor: pointer; 
+
+
+      &:hover {
+        background-color: #7c7c7c;
+        border-color: #9e9e9e;
+      }
     }
+
+    .image-wrapper { 
+      min-width: 100%;
+      min-height: 60%;
+      max-width: 90%; 
+      max-height: 60%;
+      overflow: hidden; 
+      padding: 3px; 
+      border: 2px solid #919191;
+      border-radius: 5px; 
+
+      img {
+        max-width: 100%; 
+        max-height: 100%; 
+      }
+    }
+  }
+
+  .input-image-wrapper { 
+    flex-direction: column; 
+    gap: 10px; 
+    padding-bottom: 10px;
+    border-bottom: 1px solid #666666; 
   }
 
   .choose-category-wrapper { 
@@ -178,6 +224,7 @@ span {
             border-top: 0.5px solid #7c7c7c; 
             border-bottom: 0.5px solid #7c7c7c; 
             overflow: hidden; 
+            text-align: center;
             max-width: 70%; 
             min-height: 30px; 
             transition-property: background-color; 
@@ -263,7 +310,7 @@ export default {
   data() {
     return {
       show: false, 
-      showChooseCategory: false,
+      showChooseCategory: false, 
       categories: null, 
       choosedCategory: 'Выбрать категорию', 
       inputTitle: '',
