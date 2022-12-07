@@ -244,8 +244,11 @@ span {
     display: flex; 
     justify-content: start; 
     align-items: center; 
+    flex-direction: column;
     gap: 5px; 
     width: 100%; 
+    max-height: 10%; 
+    overflow: scroll; 
   }
 
 

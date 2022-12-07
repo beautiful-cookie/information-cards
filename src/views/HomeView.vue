@@ -61,12 +61,12 @@ export default {
           return card.category.toLowerCase() === this.$route.params.categorie  
         })
       },
-      addCard(card) {
+      addCard(card) { 
         this.cards.unshift(
           {
             category: card.category, imgSrc: card.imgSrc, 
             title: card.title, description: card.description, 
-            urls: card.urls, id: Date.now() + 1
+            urls: [card.urls], id: Date.now() + 1
           }
         )
       }
