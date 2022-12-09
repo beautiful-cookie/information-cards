@@ -5,7 +5,7 @@
       :key="card.id" 
     >
 
-      <Card :card="card" />
+      <Card :card="card" @deleteCard="ToDeleteCard" />
       
   </div> 
 
@@ -50,7 +50,7 @@ export default {
   watch: {
     $route() {
       this.routesFilter() 
-    }  
+    }, 
   }, 
   methods: {
       routesFilter() {
@@ -69,6 +69,10 @@ export default {
             urls: [card.urls], id: Date.now() + 1
           }
         )
+      }, 
+      ToDeleteCard(cardToDelete) {
+        this.cards = this.cards.filter(card => card.id !== cardToDelete.cardId) 
+        this.showedCards = this.cards 
       }
     } 
 

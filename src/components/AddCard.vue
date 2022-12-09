@@ -1,6 +1,5 @@
 <template>
   <div class="addBtn-wrapper">
-    <i class="material-icons addPlus" @click="show = !show, showChooseCategory = false">add</i> 
     <AddCardModal v-if="show" @closeCardModal="toggleCardModal">
       <div class="card-modal-content-wrapper">
 
@@ -24,7 +23,7 @@
           <div class="input-button-url-wrapper">
             <input type="url" placeholder="Введите ссылки..." v-model="inputUrls">
           </div>
-        </div> 
+        </div>
 
         <div class="choose-category-wrapper">
           <div class="choose-category-content">
@@ -39,14 +38,15 @@
                     </li>
                 </ol>
               </transition>
-            </span> 
+            </span>
           </div>
         </div>
 
         <button class="add-card-button" @click="addCard">Добавить</button>
       </div>
-    </AddCardModal>  
-  </div> 
+    </AddCardModal>
+    <i class="material-icons addPlus" @click="show = !show, showChooseCategory = false">add</i>
+  </div>
 </template>
 
 
@@ -345,7 +345,14 @@ export default {
       this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, 
                              urls: this.inputUrls, 
                              category: this.inputCategorie == 'Выбрать категорию' ? '' : this.inputCategorie, 
-                             imgSrc: this.inputImage})
+                             imgSrc: this.inputImage}) 
+      this.inputTitle = '' 
+      this.inputDescription = '' 
+      this.inputUrls = '' 
+      this.inputCategorie = 'Выбрать категорию' 
+      this.choosedCategory = 'Выбрать категорию' 
+      this.showChooseCategory = false 
+      this.show = false 
     }, 
     chooseCategory(title) {
       this.choosedCategory = title 

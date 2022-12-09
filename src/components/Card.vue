@@ -22,6 +22,15 @@
                 </h4>
               </ol>
             </div>
+
+            <div class="action-buttons">
+              <div class="change-button">
+                <span class="material-icons">edit</span>
+              </div>
+              <div class="delete-button" @click="deleteCard">
+                <span class="material-icons">delete</span>
+              </div>
+            </div>
           </div>
         </div>
       </transition>
@@ -48,6 +57,11 @@ export default {
     card: {
       type: Object, 
       required: true 
+    }
+  },
+  methods: {
+    deleteCard() {
+      this.$emit('deleteCard', {cardId: this.card.id})
     }
   }
 }
@@ -208,6 +222,44 @@ summary {
         height: 100%; 
       }
     } 
+  }
+
+  .action-buttons {
+    display: flex;
+    background-color: #212121;
+    min-width: 90%;
+    max-width: 90%;
+    color: white;
+
+
+    .change-button, .delete-button {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      transition-property: background-color;
+      transition-duration: 0.3s;
+    }
+
+    .change-button {
+      background-color: #1a237e;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      &:hover {
+        background-color: #0d47a1 ;
+      }
+    }
+
+    .delete-button {
+      background-color: #b71c1c;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+      &:hover {
+        background-color: #d50000;
+      }
+    }
   }
 } 
 
