@@ -49,4 +49,8 @@ body
 ::-webkit-scrollbar {
   display: none; 
 } 
+
+input, textarea {
+  outline: none; 
+}
 </style>

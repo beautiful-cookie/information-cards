@@ -14,8 +14,8 @@
               </div>
               <ol>
                 <h4 :key="url" v-for="url of card.urls">
-                  <li  class="link-li">
-                    <a :href="url" target="_blank" class="link">
+                  <li class="link-li">
+                    <a :href="url.includes('https://') ? url : `https://${url}`" target="_blank" class="link">
                      {{url}}
                     </a>
                   </li>
@@ -164,7 +164,8 @@ summary {
     background-color: #212121;
     min-width: 90%;
     max-width: 90%; 
-    font-weight: 500;
+    font-weight: 500; 
+    user-select: text;
   } 
 
   .url { 

@@ -15,7 +15,9 @@
 
         <div class="input-description-wrapper">
           <span><h3>Описание:</h3></span>
-          <input type="text" placeholder="Введите описание..." v-model="inputDescription">
+          <span class="textarea-wrapper">
+            <textarea rows="1" placeholder="Введите описание..." v-model="inputDescription"></textarea>
+          </span>
         </div>
 
         <div class="input-urls-wrapper">
@@ -59,7 +61,7 @@
 }
 span {
   position: relative;
-  width: 70%;  
+  width: 51%;  
   text-align: start; 
 }
 .category-div {
@@ -112,17 +114,24 @@ span {
 
   .input-title-wrapper, .input-description-wrapper, .input-urls-wrapper, .input-image-wrapper {
     display: flex; 
-    justify-content: start;
+    justify-content: end;
     align-items: center; 
     width: 70%; 
+    gap: 10%; 
+    
+    .textarea-wrapper {
+      max-width: 100%; 
+      min-width: 59%; 
+    }
 
-    input {
+    input, textarea { 
       background-color: #222222;
       padding: 5px 10px 5px 10px;
       color: white;
       border: 1px solid #818181;
       border-radius: 10px;
-      width: 100%;
+      width: 100%; 
+      resize: vertical; 
     } 
 
     .inputImage {
@@ -319,7 +328,7 @@ export default {
       inputTitle: '',
       inputDescription: '',
       inputUrls: '', 
-      inputImage: '', 
+      inputImage: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wallon.ru%2F_ph%2F14%2F282289135.jpg%3F1586789285&f=1&nofb=1&ipt=9f5b67c9de5a563c710d6493b562916cd466b249b5e670976d05eb0143ae187c&ipo=images', 
       inputCategorie: '' 
     }
   },
