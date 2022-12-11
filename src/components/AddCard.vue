@@ -21,9 +21,11 @@
         </div>
 
         <div class="input-urls-wrapper">
-          <span><h3>Ссылки:</h3></span>
+          <span><h3>Ссылки:</h3></span> 
+
           <div class="input-button-url-wrapper">
             <input type="url" placeholder="Введите ссылки..." v-model="inputUrls">
+            <button><i class="material-icons addUrl">add</i></button>
           </div>
         </div>
 
@@ -253,11 +255,32 @@ span {
     display: flex; 
     justify-content: start; 
     align-items: center; 
-    flex-direction: column;
     gap: 5px; 
     width: 100%; 
     max-height: 10%; 
     overflow: scroll; 
+
+    button {
+      display: flex; justify-content: center; align-items: center;
+      background-color: transparent;
+      color: white; 
+      font-size: 10px; 
+      padding: 2px; 
+      border: 2px solid rgba(85, 85, 85, 0.502);
+      border-radius: 5px;
+      transition-property: background-color, border;
+      transition-duration: 0.3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+      &:hover {
+        background-color: #7c7c7c;
+        border-color: #9e9e9e;
+      } 
+
+      .material-icons.addUrl {
+        font-size: 20px; 
+      }
+    } 
   }
 
 
