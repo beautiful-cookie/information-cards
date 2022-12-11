@@ -333,11 +333,11 @@ export default {
     }
   },
   created() {
-    this.categories = this.getFromLocal()
+    this.categories = this.getCategoriesFromLocal()
   }, 
   watch: {
     showChooseCategory() {
-      this.categories = this.getFromLocal() 
+      this.categories = this.getCategoriesFromLocal() 
     }
   }, 
   components: {
@@ -368,11 +368,11 @@ export default {
       this.inputCategorie = title 
       this.showChooseCategory = false 
     }, 
-    getFromLocal() {
+    getCategoriesFromLocal() {
       const storage = localStorage.getItem('categories')
       if (!storage) return [] 
       return JSON.parse(storage)
-    }
+    } 
   }
 }
 </script>
