@@ -6,8 +6,8 @@
             <div class="category-name-wrapper"><span class="empty-class"></span><span class="category-name">{{card.category}}</span></div>
             <div class="image-wrapper" v-if="showImg"><img :src="card.imgSrc" alt="Ops.."></div>
             <h3><span class="title">{{card.title}}</span></h3>
-            <div class="description">{{card.description}}</div>
-            <div class="url">
+            <div class="description" v-if="showDescriprion">{{card.description}}</div>
+            <div class="url" v-if="showUrls">
               <div class="url-title-wrapper">
                 <span class="url-title">Ссылки:</span>
                 <span class="empty-class"></span>
@@ -47,11 +47,17 @@ export default {
   data() {
     return {
       show: false, 
-      showImg: false  
+      showImg: false , 
+      showDescriprion: false, 
+      showUrls: false 
     }
   }, 
   created() {
     this.showImg = this.card.imgSrc ? true : false 
+    this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
+    this.showUrls = this.card.urls == '' || this.card.urls == ' ' ? false : true 
+    console.log(this.card.title, this.card.urls)
+    console.log(this.card.urls == '') 
   },
   props: {
     card: {
@@ -62,7 +68,7 @@ export default {
   methods: {
     deleteCard() {
       this.$emit('deleteCard', {cardId: this.card.id})
-    }
+    }, 
   }
 }
 </script>
@@ -86,14 +92,17 @@ details div {
 
 summary {
   list-style: none; 
-  color: #747474; 
-  cursor: pointer; 
+  color: #fafafa; 
   font-family: 'Comfortaa', cursive; 
-  transition-property: color;
+  border: 2px solid transparent; 
+  border-radius: 5px; 
+  padding: 10px 15px 10px 15px; 
+  background-color: #222222; 
+  transition-property: text-shadow;
   transition-duration: 0.3s;
 
   &:hover {
-    color: #dfdfdf;
+    text-shadow: 0 0 4px #fafafa; 
   }
 }
 

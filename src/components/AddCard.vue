@@ -55,7 +55,7 @@
 
 
 <style lang="scss" scoped> 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active, .fade-leave-active { 
   transition: opacity .3s;
 }
 .fade-enter, .fade-leave-to {
@@ -374,7 +374,8 @@ export default {
       this.showChooseCategory = !this.showChooseCategory 
     }, 
     addCard() {
-      this.$emit('addCard', {title: this.inputTitle, description: this.inputDescription, 
+      this.$emit('addCard', {title: this.inputTitle, 
+                             description: this.inputDescription, 
                              urls: this.inputUrls, 
                              category: this.inputCategorie == 'Выбрать категорию' ? '' : this.inputCategorie, 
                              imgSrc: this.inputImage}) 
