@@ -13,7 +13,7 @@
                 <span class="empty-class"></span>
               </div>
               <ol>
-                <h4 :key="url" v-for="url of card.urls">
+                <h4 :key="url.id" v-for="url of card.urls">
                   <li class="link-li">
                     <a :href="url.includes('https://') ? url : `https://${url}`" target="_blank" class="link">
                      {{url}}
@@ -56,8 +56,6 @@ export default {
     this.showImg = this.card.imgSrc ? true : false 
     this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
     this.showUrls = this.card.urls == '' || this.card.urls == ' ' ? false : true 
-    console.log(this.card.title, this.card.urls)
-    console.log(this.card.urls == '') 
   },
   props: {
     card: {
@@ -98,8 +96,8 @@ summary {
   border-radius: 5px; 
   padding: 10px 15px 10px 15px; 
   background-color: #222222; 
-  transition-property: text-shadow;
-  transition-duration: 0.3s;
+  transition-property: text-shadow; 
+  transition-duration: 0.3s; 
 
   &:hover {
     text-shadow: 0 0 4px #fafafa; 

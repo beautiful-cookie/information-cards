@@ -24,8 +24,19 @@
           <span><h3>Ссылки:</h3></span> 
 
           <div class="input-button-url-wrapper">
-            <input type="url" placeholder="Введите ссылки..." v-model="inputUrls">
-            <button><i class="material-icons addUrl">add</i></button>
+            <ol>
+              <h4 v-for="url of urlsToAdd" :key="url.id" >
+                <li class="link-li">
+                  <a :href="url.url.includes('https://') ? url.url : `https://${url.url}`" target="_blank" class="link">
+                    {{url.url}}
+                  </a>
+                </li>
+              </h4>
+            </ol>
+            <div class="add-urls-button-input-wrapper">
+              <input type="url" placeholder="Введите ссылки..." v-model="inputUrls">
+              <button><i class="material-icons addUrl" @click="addUrl">add</i></button>
+            </div>
           </div>
         </div>
 
@@ -255,10 +266,60 @@ span {
     display: flex; 
     justify-content: start; 
     align-items: center; 
+    flex-direction: column;
     gap: 5px; 
     width: 100%; 
     max-height: 10%; 
     overflow: scroll; 
+
+    ol h4 {
+      display: flex; 
+      justify-content: start; 
+      align-items: center; 
+    }
+
+    .link-li {
+      color: #1565c0; 
+      max-width: 40vw; 
+      overflow-wrap: break-word; 
+      text-align: start; 
+      position: relative; 
+      padding: 2px; 
+      margin-bottom: 10px;
+    }
+    .link { 
+      color: #2885f0; 
+      text-decoration: none; 
+      transition-property: color; 
+      transition-duration: 0.3s; 
+      
+      &:hover {  
+        color: white; 
+      }   
+
+      &::before {
+        content: ""; 
+        position: absolute; 
+        width: 100%; 
+        height: 2px; 
+        bottom: 0; 
+        left: 0; 
+        background-color: rgba(45, 129, 255, 0.5); 
+        transition-property: background-color, height; 
+        transition-duration: 0.3s; 
+      }
+      &:hover:before {
+        background-color: rgba(1, 88, 155, 0.3); 
+        height: 100%; 
+      }
+    }  
+
+    .add-urls-button-input-wrapper {
+      display: flex; 
+      justify-content: start; 
+      align-items: center; 
+      width: 100%;
+    }
 
     button {
       display: flex; justify-content: center; align-items: center;
@@ -276,7 +337,6 @@ span {
         background-color: #7c7c7c;
         border-color: #9e9e9e;
       } 
-
       .material-icons.addUrl {
         font-size: 20px; 
       }
@@ -347,6 +407,7 @@ export default {
       show: false, 
       showChooseCategory: false, 
       categories: null, 
+      urlsToAdd: [], 
       choosedCategory: 'Выбрать категорию', 
       inputTitle: '',
       inputDescription: '',
@@ -376,9 +437,21 @@ export default {
     addCard() {
       this.$emit('addCard', {title: this.inputTitle, 
                              description: this.inputDescription, 
-                             urls: this.inputUrls, 
+                             urls: this.urlsToAdd, 
                              category: this.inputCategorie == 'Выбрать категорию' ? '' : this.inputCategorie, 
                              imgSrc: this.inputImage}) 
+      this.clearAddCardModalData() 
+    }, 
+    chooseCategory(title) {
+      this.choosedCategory = title 
+      this.inputCategorie = title 
+      this.showChooseCategory = false 
+    }, 
+    addUrl() {
+      this.urlsToAdd.push({id: Date.now(), url: this.inputUrls}) 
+      this.inputUrls = '' 
+    }, 
+    clearAddCardModalData() {
       this.inputTitle = '' 
       this.inputDescription = '' 
       this.inputUrls = '' 
@@ -386,12 +459,8 @@ export default {
       this.choosedCategory = 'Выбрать категорию' 
       this.showChooseCategory = false 
       this.show = false 
-    }, 
-    chooseCategory(title) {
-      this.choosedCategory = title 
-      this.inputCategorie = title 
-      this.showChooseCategory = false 
-    }, 
+      this.urlsToAdd = [] 
+    },
     getCategoriesFromLocal() {
       const storage = localStorage.getItem('categories')
       if (!storage) return [] 
