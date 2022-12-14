@@ -318,7 +318,8 @@ span {
       display: flex; 
       justify-content: start; 
       align-items: center; 
-      width: 100%;
+      width: 100%; 
+      gap: 5px; 
     }
 
     button {

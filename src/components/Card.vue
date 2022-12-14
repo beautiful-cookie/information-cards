@@ -56,6 +56,7 @@ export default {
     this.showImg = this.card.imgSrc ? true : false 
     this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
     this.showUrls = this.card.urls == '' || this.card.urls == ' ' ? false : true 
+    // console.log(this.card.urls[0])
   },
   props: {
     card: {
