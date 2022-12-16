@@ -4,8 +4,10 @@
       <div class="card-modal-content-wrapper">
 
         <div class="input-image-wrapper">
-          <div class="image-wrapper"><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wallon.ru%2F_ph%2F14%2F282289135.jpg%3F1586789285&f=1&nofb=1&ipt=9f5b67c9de5a563c710d6493b562916cd466b249b5e670976d05eb0143ae187c&ipo=images" alt="Ops.."></div>
-          <input type="file" class="inputImage" value="Выберете картинку" />
+          <div class="image-wrapper" v-if="pictureSelected()"><img :src="inputImage" alt="Такой картинки не найдено..."></div>
+          <span class="textarea-wrapper image-input">
+            <textarea rows="3" placeholder="Введите ссылку на картинку..." v-model="inputImage"></textarea>
+          </span>
         </div>
 
         <div class="input-title-wrapper">
@@ -135,7 +137,12 @@ span {
     .textarea-wrapper {
       max-width: 100%; 
       min-width: 59%; 
-    }
+    } 
+
+    .image-input {
+       min-width: 100%; 
+       resize: vertical; 
+    } 
 
     input, textarea { 
       background-color: #222222;
@@ -413,7 +420,7 @@ export default {
       inputTitle: '',
       inputDescription: '',
       inputUrls: '', 
-      inputImage: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wallon.ru%2F_ph%2F14%2F282289135.jpg%3F1586789285&f=1&nofb=1&ipt=9f5b67c9de5a563c710d6493b562916cd466b249b5e670976d05eb0143ae187c&ipo=images', 
+      inputImage: '', 
       inputCategorie: '' 
     }
   },
@@ -449,23 +456,29 @@ export default {
       this.showChooseCategory = false 
     }, 
     addUrl() {
-      this.urlsToAdd.push({id: Date.now(), url: this.inputUrls}) 
+      if (this.inputUrls.trim()) {
+        this.urlsToAdd.push({id: Date.now(), url: this.inputUrls}) 
+      }
       this.inputUrls = '' 
     }, 
     clearAddCardModalData() {
       this.inputTitle = '' 
       this.inputDescription = '' 
       this.inputUrls = '' 
+      this.inputImage = ''
       this.inputCategorie = 'Выбрать категорию' 
       this.choosedCategory = 'Выбрать категорию' 
       this.showChooseCategory = false 
       this.show = false 
       this.urlsToAdd = [] 
-    },
+    }, 
+    pictureSelected() {
+      return !this.inputImage ? false : true 
+    }, 
     getCategoriesFromLocal() {
       const storage = localStorage.getItem('categories')
       if (!storage) return [] 
-      return JSON.parse(storage)
+      return JSON.parse(storage) 
     } 
   }
 }

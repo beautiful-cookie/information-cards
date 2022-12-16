@@ -4,8 +4,7 @@
         <div v-if="show">
           <div class="card">
             <div class="category-name-wrapper"><span class="empty-class"></span><span class="category-name">{{card.category}}</span></div>
-            <div class="image-wrapper" v-if="showImg"><img :src="card.imgSrc" alt="Ops.."></div>
-            <h3><span class="title">{{card.title}}</span></h3>
+            <div class="image-wrapper" v-if="showImg"><img :src="card.imgSrc" alt="Такой картинки не найдено..."></div>
             <div class="description" v-if="showDescriprion">{{card.description}}</div>
             <div class="url" v-if="showUrls">
               <div class="url-title-wrapper">
@@ -13,10 +12,10 @@
                 <span class="empty-class"></span>
               </div>
               <ol>
-                <h4 :key="url.id" v-for="url of card.urls">
+                <h4 :key="url.id" v-for="url of card.urls[0]">
                   <li class="link-li">
-                    <a :href="url.includes('https://') ? url : `https://${url}`" target="_blank" class="link">
-                     {{url}}
+                    <a :href="url.url.includes('https://') ? url.url : `https://${url.url}`" target="_blank" class="link">
+                     {{url.url}}
                     </a>
                   </li>
                 </h4>
@@ -55,9 +54,8 @@ export default {
   created() {
     this.showImg = this.card.imgSrc ? true : false 
     this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
-    this.showUrls = this.card.urls == '' || this.card.urls == ' ' ? false : true 
-    // console.log(this.card.urls[0])
-  },
+    this.showUrls = !(this.card.urls > 0) ? false : true 
+  }, 
   props: {
     card: {
       type: Object, 
@@ -150,18 +148,13 @@ summary {
     padding: 3px; 
     border: 2px solid #919191;
     border-radius: 5px; 
+    color: #cecdcd; 
 
     img {
       max-width: 100%; 
       max-height: 100%; 
     }
-  }
-
-  h3 .title {
-    color: #c0c0c0; 
-    text-shadow: 0 0 1px white; 
-    font-family: 'Comfortaa', cursive; 
-  }
+  } 
 
   .description {
     color: #fafafa; 

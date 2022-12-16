@@ -36,14 +36,14 @@ export default {
     }, 
     methods: {
         addCategoriesItem() { 
-            if (this.addCathegorieTxt) { 
+            if (this.addCathegorieTxt.trim()) { 
                 this.categories.push({ 
                 title: this.addCathegorieTxt, 
                 id: Date.now()  
-              })
+              }) 
+              this.saveInLocal() 
             }
-            this.addCathegorieTxt = ''; 
-            this.saveInLocal() 
+            this.addCathegorieTxt = '' 
         }, 
         deleteCategorie(categorieElement) {
             this.categories = this.categories.filter(categorie => categorie !== categorieElement) 
