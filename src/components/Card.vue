@@ -14,8 +14,8 @@
               <ol>
                 <h4 :key="url.id" v-for="url of card.urls[0]">
                   <li class="link-li">
-                    <a :href="url.url.includes('https://') ? url.url : `https://${url.url}`" target="_blank" class="link">
-                     {{url.url}}
+                    <a :href="fixUrl(url)" target="_blank" class="link">
+                     {{fixUrl(url)}}
                     </a>
                   </li>
                 </h4>
@@ -54,7 +54,7 @@ export default {
   created() {
     this.showImg = this.card.imgSrc ? true : false 
     this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
-    this.showUrls = !(this.card.urls > 0) ? false : true 
+    this.showUrls = !(this.card.urls[0].length > 0) ? false : true 
   }, 
   props: {
     card: {
@@ -66,6 +66,9 @@ export default {
     deleteCard() {
       this.$emit('deleteCard', {cardId: this.card.id})
     }, 
+    fixUrl(url) {
+      return url.url.includes('https://') ? url.url : `https://${url.url}`
+    }
   }
 }
 </script>

@@ -99,6 +99,7 @@ span {
   border-radius: 50%; 
   bottom: 10vh; 
   right: 10vw; 
+  user-select: none; 
   transition-property: background-color; 
   transition-duration: 0.3s;
 
