@@ -29,10 +29,11 @@
             <ol>
               <h4 v-for="url of urlsToAdd" :key="url.id" >
                 <li class="link-li">
-                  <a :href="url.url.includes('https://') ? url.url : `https://${url.url}`" target="_blank" class="link">
-                    {{url.url}}
+                  <a :href="fixUrl(url)" target="_blank" class="link">
+                    {{fixUrl(url)}}
                   </a>
                 </li>
+                <button><i class="material-icons delUrl" @click="clearUrl(url.id)">close</i></button>
               </h4>
             </ol>
             <div class="add-urls-button-input-wrapper">
@@ -284,6 +285,15 @@ span {
       display: flex; 
       justify-content: start; 
       align-items: center; 
+      gap: 5px; 
+
+      button {
+        margin-bottom: 5px; 
+      }
+
+      .material-icons.delUrl {
+        font-size: 15px; 
+      }
     }
 
     .link-li {
@@ -475,6 +485,12 @@ export default {
     }, 
     pictureSelected() {
       return !this.inputImage ? false : true 
+    }, 
+    clearUrl(id) {
+      this.urlsToAdd = this.urlsToAdd.filter(url => url.id !== id) 
+    }, 
+    fixUrl(url) {
+      return url.url.includes('https://') ? url.url : `https://${url.url}`
     }, 
     getCategoriesFromLocal() {
       const storage = localStorage.getItem('categories')
