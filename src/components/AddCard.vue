@@ -1,6 +1,6 @@
 <template>
   <div class="addBtn-wrapper">
-    <AddCardModal v-if="show" @closeCardModal="toggleCardModal">
+    <AddCardModal v-if="show" @closeCardModal="toggleCardModal" :modalTitle="'Добавить'">
       <div class="card-modal-content-wrapper">
 
         <div class="input-image-wrapper">
@@ -118,16 +118,16 @@ span {
   }
 }
 
-.card-modal-content-wrapper {
+.card-modal-content-wrapper { 
   display: flex; 
   align-items: center; 
-  flex-direction: column; 
-  gap: 20px;
-  max-height: 85%;
+  flex-direction: column;  
+  gap: 20px; 
+  max-height: 85%;  
   padding: 5px;
   width: 100%; 
   margin-top: 20px; 
-  overflow: scroll;
+  overflow: scroll; 
 
   .input-title-wrapper, .input-description-wrapper, .input-urls-wrapper, .input-image-wrapper {
     display: flex; 

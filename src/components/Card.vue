@@ -24,11 +24,18 @@
 
             <div class="action-buttons">
               <div class="change-button">
-                <span class="material-icons">edit</span>
+                <span class="material-icons" @click="toggleChangeCardModal">edit</span>
               </div>
               <div class="delete-button" @click="deleteCard">
-                <span class="material-icons">delete</span>
+                <span class="material-icons">delete</span> 
               </div>
+              <AddCardModal v-if="showChangeCard" @closeCardModal="toggleChangeCardModal" :modalTitle="'Изменить'" :card="this.card">
+                <div class="change-card-modal-content-wrapper">
+                  <div class="image-modal-wrapper">
+
+                  </div>
+                </div>
+              </AddCardModal>
             </div>
           </div>
         </div>
@@ -42,13 +49,15 @@
 </template>
 
 <script>
+import AddCardModal from '@/components/AddCardModal.vue'
 export default {
   data() {
     return {
       show: false, 
       showImg: false , 
       showDescriprion: false, 
-      showUrls: false 
+      showUrls: false, 
+      showChangeCard: false 
     }
   }, 
   created() {
@@ -61,13 +70,19 @@ export default {
       type: Object, 
       required: true 
     }
-  },
+  }, 
+  components: {
+    AddCardModal 
+  }, 
   methods: {
     deleteCard() {
       this.$emit('deleteCard', {cardId: this.card.id})
     }, 
     fixUrl(url) {
       return url.url.includes('https://') ? url.url : `https://${url.url}`
+    }, 
+    toggleChangeCardModal() {
+      this.showChangeCard = !this.showChangeCard 
     }
   }
 }
@@ -264,9 +279,22 @@ summary {
       &:hover {
         background-color: #d50000;
       }
-    }
+    } 
   }
 } 
+
+.change-card-modal-content-wrapper {
+  display: flex; 
+  align-items: center; 
+  flex-direction: column;  
+  gap: 20px; 
+  max-height: 85%;  
+  padding: 5px;
+  width: 100%; 
+  margin-top: 20px; 
+  overflow: scroll; 
+
+}
 
 @media screen and (max-width: 700px) {
   .card {

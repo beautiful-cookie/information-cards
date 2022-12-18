@@ -1,7 +1,7 @@
 <template>
     <div class="card-modal-wrapper">
         <div class="title-wrapper">
-            <h3>Добавить событие</h3>
+            <h3>{{this.modalTitle}} событие</h3>
             <span>
                 <i @click="closeCardModal" class="material-icons">close</i>
             </span>
@@ -75,6 +75,12 @@ export default {
     methods: {
         closeCardModal() {
             this.$emit('closeCardModal'); 
+        }
+    }, 
+    props: {
+        modalTitle: {
+            type: String, 
+            required: true 
         }
     }
 }
