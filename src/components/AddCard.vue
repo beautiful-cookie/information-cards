@@ -379,7 +379,6 @@ span {
       background-color: #7c7c7c;
       border-color: #9e9e9e;
     }
-    
   }
 
   .urls-button {

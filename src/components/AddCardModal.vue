@@ -25,6 +25,7 @@
     color: white;
     top: 50%;
     left: 50%;
+    flex-direction: column;
     transform: translate(-50%, -50%);
 
 

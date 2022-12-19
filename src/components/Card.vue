@@ -29,13 +29,20 @@
               <div class="delete-button" @click="deleteCard">
                 <span class="material-icons">delete</span> 
               </div>
-              <AddCardModal v-if="showChangeCard" @closeCardModal="toggleChangeCardModal" :modalTitle="'Изменить'" :card="this.card">
-                <div class="change-card-modal-content-wrapper">
-                  <div class="image-modal-wrapper">
+              <ChangeCardModal v-if="showChangeCard" @closeChangeCardModal="toggleChangeCardModal" :modalTitle="'Изменить'" :card="this.card">
+                <div class="change-card-modal-content-wrapper"> 
 
-                  </div>
-                </div>
-              </AddCardModal>
+                  <div class="image-modal-wrapper">
+                    <div class="change-image-wrapper" v-if="pictureSelected()"><img :src="changeInputImage" alt="Такой картинки не найдено..."></div>
+                    <span class="textarea-wrapper image-input">
+                      <textarea rows="3" placeholder="Введите ссылку на картинку..." v-model="changeInputImage"></textarea>
+                    </span>
+                  </div> 
+
+
+                  <button class="change-card-button" @click="changeCard">Изменить</button>
+                </div> 
+              </ChangeCardModal>
             </div>
           </div>
         </div>
@@ -49,7 +56,7 @@
 </template>
 
 <script>
-import AddCardModal from '@/components/AddCardModal.vue'
+import ChangeCardModal from '@/components/ChangeCardModal.vue'
 export default {
   data() {
     return {
@@ -57,13 +64,15 @@ export default {
       showImg: false , 
       showDescriprion: false, 
       showUrls: false, 
-      showChangeCard: false 
+      showChangeCard: false, 
+      changeInputImage: '' 
     }
   }, 
   created() {
     this.showImg = this.card.imgSrc ? true : false 
     this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
     this.showUrls = !(this.card.urls[0].length > 0) ? false : true 
+    this.changeInputImage = this.card.imgSrc 
   }, 
   props: {
     card: {
@@ -72,18 +81,25 @@ export default {
     }
   }, 
   components: {
-    AddCardModal 
+    ChangeCardModal 
   }, 
   methods: {
     deleteCard() {
       this.$emit('deleteCard', {cardId: this.card.id})
+    }, 
+    changeCard() {
+      this.card.imgSrc = this.changeInputImage 
+      this.showChangeCard = false 
     }, 
     fixUrl(url) {
       return url.url.includes('https://') ? url.url : `https://${url.url}`
     }, 
     toggleChangeCardModal() {
       this.showChangeCard = !this.showChangeCard 
-    }
+    }, 
+    pictureSelected() {
+      return !this.changeInputImage ? false : true 
+    }, 
   }
 }
 </script>
@@ -288,12 +304,81 @@ summary {
   align-items: center; 
   flex-direction: column;  
   gap: 20px; 
-  max-height: 85%;  
-  padding: 5px;
+  max-height: 98%;  
+  padding: 5px; 
   width: 100%; 
-  margin-top: 20px; 
   overflow: scroll; 
 
+  .image-modal-wrapper {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    width: 70%; 
+    gap: 10px; 
+    padding-bottom: 15px;
+    border-bottom: 1px solid #666666; 
+  } 
+
+  .change-image-wrapper {
+    min-width: 100%;
+    min-height: 60%;
+    max-width: 90%; 
+    max-height: 60%;
+    overflow: hidden; 
+    padding: 3px; 
+    border: 2px solid #919191;
+    border-radius: 5px; 
+    color: #cecdcd; 
+
+    img {
+      max-width: 100%; 
+      max-height: 100%; 
+    }
+  }
+
+  .textarea-wrapper {
+    display: flex; 
+    justify-content: end;
+    align-items: center; 
+    width: 100%; 
+    gap: 10%; 
+    max-width: 100%; 
+    min-width: 59%; 
+
+    input, textarea { 
+      background-color: #222222;
+      padding: 5px 10px 5px 10px;
+      color: white;
+      border: 1px solid #818181;
+      border-radius: 10px;
+      width: 100%; 
+      resize: vertical; 
+    } 
+  } 
+  .image-input {
+    min-width: 100%; 
+    resize: vertical; 
+  } 
+
+
+  .change-card-button {
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    width: 70%;
+    border: 2px solid rgba(85, 85, 85, 0.502);
+    border-radius: 5px;
+    transition-property: background-color, border;
+    transition-duration: 0.3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+    &:hover {
+      background-color: #7c7c7c;
+      border-color: #9e9e9e;
+    }
+  }
 }
 
 @media screen and (max-width: 700px) {
