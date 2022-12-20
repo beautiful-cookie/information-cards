@@ -39,11 +39,23 @@
                     </span>
                   </div> 
 
+                  <div class="input-title-wrapper">
+                    <span><h3>Название:</h3></span>
+                    <input type="text" placeholder="Введите название..." v-model="changeInputTitle">
+                  </div>
+
+                  <div class="input-description-wrapper">
+                    <span><h3>Описание:</h3></span>
+                    <span class="textarea-wrapper">
+                      <textarea rows="1" placeholder="Введите описание..." v-model="changeInputDescription"></textarea>
+                    </span>
+                  </div>
+
 
                   <button class="change-card-button" @click="changeCard">Изменить</button>
                 </div> 
-              </ChangeCardModal>
-            </div>
+              </ChangeCardModal> 
+            </div> 
           </div>
         </div>
       </transition>
@@ -65,7 +77,9 @@ export default {
       showDescriprion: false, 
       showUrls: false, 
       showChangeCard: false, 
-      changeInputImage: '' 
+      changeInputImage: '', 
+      changeInputTitle: '', 
+      changeInputDescription: '' 
     }
   }, 
   created() {
@@ -73,6 +87,8 @@ export default {
     this.showDescriprion = this.card.description === '' || this.card.description === ' ' ? false : true 
     this.showUrls = !(this.card.urls[0].length > 0) ? false : true 
     this.changeInputImage = this.card.imgSrc 
+    this.changeInputTitle = this.card.title 
+    this.changeInputDescription = this.card.description 
   }, 
   props: {
     card: {
@@ -89,6 +105,8 @@ export default {
     }, 
     changeCard() {
       this.card.imgSrc = this.changeInputImage 
+      this.card.title = this.changeInputTitle 
+      this.card.description = this.changeInputDescription 
       this.showChangeCard = false 
     }, 
     fixUrl(url) {
@@ -335,6 +353,24 @@ summary {
       max-width: 100%; 
       max-height: 100%; 
     }
+  }
+
+  .input-title-wrapper, .input-description-wrapper {
+    display: flex; 
+    justify-content: end;
+    align-items: center; 
+    width: 70%; 
+    gap: 10%; 
+
+    input, textarea { 
+      background-color: #222222;
+      padding: 5px 10px 5px 10px;
+      color: white;
+      border: 1px solid #818181;
+      border-radius: 10px;
+      width: 100%; 
+      resize: vertical; 
+    } 
   }
 
   .textarea-wrapper {
