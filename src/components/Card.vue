@@ -23,8 +23,8 @@
             </div>
 
             <div class="action-buttons">
-              <div class="change-button">
-                <span class="material-icons" @click="toggleChangeCardModal">edit</span>
+              <div class="change-button" @click="toggleChangeCardModal">
+                <span class="material-icons">edit</span>
               </div>
               <div class="delete-button" @click="deleteCard">
                 <span class="material-icons">delete</span> 
@@ -47,29 +47,49 @@
                   <div class="input-description-wrapper">
                     <span><h3>Описание:</h3></span>
                     <span class="textarea-wrapper">
-                      <textarea rows="1" placeholder="Введите описание..." v-model="changeInputDescription"></textarea>
+                      <textarea rows="3" placeholder="Введите описание..." v-model="changeInputDescription"></textarea>
                     </span>
                   </div>
 
+                  <div class="input-urls-wrapper">
+                    <span><h3>Ссылки:</h3></span> 
+
+                    <div class="input-button-url-wrapper">
+                      <ol>
+                        <h4 v-for="url of this.urlsToChange" :key="url.id" >
+                          <li class="link-li">
+                            <a :href="fixUrl(url)" target="_blank" class="link">
+                              {{fixUrl(url)}}
+                            </a>
+                          </li>
+                          <button><i class="material-icons delUrl" @click="clearUrl(url.id)">close</i></button>
+                        </h4>
+                      </ol>
+                      <div class="add-urls-button-input-wrapper">
+                        <input type="url" placeholder="Введите ссылки..." v-model="changeInputUrls">
+                        <button><i class="material-icons addUrl" @click="addUrl()">add</i></button>
+                      </div>
+                    </div>
+                  </div>
 
                   <button class="change-card-button" @click="changeCard">Изменить</button>
                 </div> 
-              </ChangeCardModal> 
-            </div> 
-          </div>
-        </div>
-      </transition>
-
-
-      <summary @click="show = !show"> 
-        {{card.title}}
-      </summary>
-    </details>
-</template>
-
-<script>
-import ChangeCardModal from '@/components/ChangeCardModal.vue'
-export default {
+              </ChangeCardModal>  
+            </div>  
+          </div> 
+        </div> 
+      </transition> 
+ 
+ 
+      <summary @click="show = !show">  
+        {{card.title}} 
+      </summary> 
+    </details> 
+</template> 
+ 
+<script> 
+import ChangeCardModal from '@/components/ChangeCardModal.vue' 
+export default { 
   data() {
     return {
       show: false, 
@@ -79,8 +99,10 @@ export default {
       showChangeCard: false, 
       changeInputImage: '', 
       changeInputTitle: '', 
-      changeInputDescription: '' 
-    }
+      changeInputDescription: '', 
+      changeInputUrls: '', 
+      urlsToChange: [] 
+    } 
   }, 
   created() {
     this.showImg = this.card.imgSrc ? true : false 
@@ -89,6 +111,7 @@ export default {
     this.changeInputImage = this.card.imgSrc 
     this.changeInputTitle = this.card.title 
     this.changeInputDescription = this.card.description 
+    this.urlsToChange = this.card.urls[0] 
   }, 
   props: {
     card: {
@@ -107,16 +130,26 @@ export default {
       this.card.imgSrc = this.changeInputImage 
       this.card.title = this.changeInputTitle 
       this.card.description = this.changeInputDescription 
+      this.card.urls[0] = this.urlsToChange 
       this.showChangeCard = false 
     }, 
     fixUrl(url) {
       return url.url.includes('https://') ? url.url : `https://${url.url}`
+    }, 
+    clearUrl(id) {
+      this.urlsToChange = this.urlsToChange.filter(url => url.id !== id) 
     }, 
     toggleChangeCardModal() {
       this.showChangeCard = !this.showChangeCard 
     }, 
     pictureSelected() {
       return !this.changeInputImage ? false : true 
+    }, 
+    addUrl() {
+      if (this.changeInputUrls.trim()) {
+        this.urlsToChange.push({id: Date.now(), url: this.changeInputUrls}) 
+      }
+      this.changeInputUrls = '' 
     }, 
   }
 }
@@ -153,6 +186,34 @@ summary {
   &:hover {
     text-shadow: 0 0 4px #fafafa; 
   }
+}
+
+
+button {
+  margin-bottom: 5px; 
+  display: flex; justify-content: center; align-items: center;
+  background-color: transparent;
+  color: white; 
+  font-size: 10px; 
+  padding: 2px; 
+  border: 2px solid rgba(85, 85, 85, 0.502);
+  border-radius: 5px;
+  transition-property: background-color, border;
+  transition-duration: 0.3s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  &:hover {
+    background-color: #7c7c7c;
+    border-color: #9e9e9e;
+  }
+
+  .material-icons.addUrl {
+    font-size: 20px; 
+  } 
+
+  .material-icons.delUrl {
+    font-size: 15px; 
+  } 
 }
 
 .card {
@@ -319,10 +380,11 @@ summary {
 
 .change-card-modal-content-wrapper {
   display: flex; 
+  justify-content: start; 
   align-items: center; 
   flex-direction: column;  
   gap: 20px; 
-  max-height: 98%;  
+  max-height: 90%;  
   padding: 5px; 
   width: 100%; 
   overflow: scroll; 
@@ -355,7 +417,7 @@ summary {
     }
   }
 
-  .input-title-wrapper, .input-description-wrapper {
+  .input-title-wrapper, .input-description-wrapper, .input-urls-wrapper {
     display: flex; 
     justify-content: end;
     align-items: center; 
@@ -371,8 +433,69 @@ summary {
       width: 100%; 
       resize: vertical; 
     } 
-  }
+  } 
 
+  .input-button-url-wrapper {
+    display: flex; 
+    justify-content: start; 
+    align-items: center; 
+    flex-direction: column;
+    gap: 5px; 
+    width: 100%; 
+    max-height: 10%; 
+    overflow: scroll; 
+
+    ol h4 {
+      display: flex; 
+      justify-content: start; 
+      align-items: center; 
+      gap: 5px; 
+    } 
+
+    .add-urls-button-input-wrapper {
+      display: flex; 
+      justify-content: start; 
+      align-items: center; 
+      width: 100%; 
+      gap: 5px; 
+    }
+
+    .link-li {
+      color: #1565c0; 
+      max-width: 40vw; 
+      overflow-wrap: break-word; 
+      text-align: start; 
+      position: relative; 
+      padding: 2px; 
+      margin-bottom: 10px;
+    }
+    .link { 
+      color: #2885f0; 
+      text-decoration: none; 
+      transition-property: color; 
+      transition-duration: 0.3s; 
+      
+      &:hover {  
+        color: white; 
+      }   
+
+      &::before {
+        content: ""; 
+        position: absolute; 
+        width: 100%; 
+        height: 2px; 
+        bottom: 0; 
+        left: 0; 
+        background-color: rgba(45, 129, 255, 0.5); 
+        transition-property: background-color, height; 
+        transition-duration: 0.3s; 
+      }
+      &:hover:before {
+        background-color: rgba(1, 88, 155, 0.3); 
+        height: 100%; 
+      }
+    }  
+  }
   .textarea-wrapper {
     display: flex; 
     justify-content: end;
@@ -402,7 +525,8 @@ summary {
     background-color: transparent;
     color: white;
     padding: 10px;
-    width: 70%;
+    width: 70%; 
+    font-size: medium; 
     border: 2px solid rgba(85, 85, 85, 0.502);
     border-radius: 5px;
     transition-property: background-color, border;

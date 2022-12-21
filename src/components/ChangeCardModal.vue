@@ -34,7 +34,7 @@
         justify-content: space-between; 
         align-items: center; 
         font-family: Arial, Helvetica, sans-serif; 
-        padding-top: 10px; 
+        padding-top: 10%; 
         padding-bottom: 5px; 
         border-bottom: 1px solid #666666; 
         width: 100%; 
