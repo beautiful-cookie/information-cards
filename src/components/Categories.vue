@@ -171,6 +171,9 @@ export default {
 @media screen and (max-width: 600px) {
     .categories-wrapper { 
         max-width: 70vw; 
+    } 
+    .categories-item {
+        font-size: 12px; 
     }
 }
 

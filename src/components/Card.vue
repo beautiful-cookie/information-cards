@@ -136,7 +136,12 @@ export default {
     this.choosedChangeCategory = this.card.category 
     this.changeCategories = this.getCategoriesFromLocal() 
   }, 
-  props: {
+  watch: {
+    showChooseCategory() {
+      this.changeCategories = this.getCategoriesFromLocal() 
+    } 
+  }, 
+  props: { 
     card: {
       type: Object, 
       required: true 
@@ -156,6 +161,19 @@ export default {
       this.card.urls[0] = this.urlsToChange 
       this.showChangeCard = false 
       this.card.category = this.changeInputCategory 
+      this.clearChangeCardModalData() 
+      this.updateCardsEmit() 
+    }, 
+    clearChangeCardModalData() {
+      this.changeInputTitle = '' 
+      this.changeInputDescription = '' 
+      this.changeInputUrls = '' 
+      this.changeInputImage = ''
+      this.changeInputCategory = 'Выбрать категорию' 
+      this.choosedChangeCategory = 'Выбрать категорию' 
+      this.showChooseChangeCategory = false 
+      this.showChangeCard = false 
+      this.urlsToChange = [] 
     }, 
     fixUrl(url) {
       return url.url.includes('https://') ? url.url : `https://${url.url}`
@@ -182,6 +200,9 @@ export default {
       this.choosedChangeCategory = title 
       this.changeInputCategory = title 
       this.showChooseChangeCategory = false 
+    }, 
+    updateCardsEmit() {
+      this.$emit('updateCards')
     }, 
     getCategoriesFromLocal() {
       const storage = localStorage.getItem('categories')
@@ -378,7 +399,7 @@ button {
 
   .action-buttons {
     display: flex;
-    background-color: #212121;
+    background-color: transparent;
     min-width: 90%;
     max-width: 90%;
     color: white;
@@ -396,7 +417,8 @@ button {
     }
 
     .change-button {
-      background-color: #1a237e;
+      background-color: transparent; 
+      border: 2px solid #0d47a1; 
       border-top-left-radius: 8px;
       border-bottom-left-radius: 8px;
       &:hover {
@@ -405,11 +427,12 @@ button {
     }
 
     .delete-button {
-      background-color: #b71c1c;
+      background-color: transparent; 
+      border: 2px solid #ff0000;
       border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
+      border-bottom-right-radius: 8px; 
       &:hover {
-        background-color: #d50000;
+        background-color: #ff0000 ;
       }
     } 
   }
@@ -424,6 +447,7 @@ button {
   max-height: 90%;  
   padding: 5px; 
   width: 100%; 
+  margin-top: 10px; 
   overflow: scroll; 
 
   .image-modal-wrapper {
@@ -533,6 +557,84 @@ button {
       }
     }  
   }
+
+  .category-div {
+  position: relative;
+  display: flex; 
+  justify-content: start;
+  align-items: center; 
+  flex-direction: column;
+  width: 100%; 
+} 
+
+.choose-category-wrapper { 
+  display: flex; 
+  justify-content: start;
+  align-items: center; 
+  flex-direction: column; 
+
+  width: 70%; 
+
+  .choose-category-content { 
+    display: flex; 
+    justify-content: start;
+    align-items: center; 
+    flex-direction: column;  
+    width: 100%; 
+
+    .chooseCategoryButton {
+        font-size: 14px;
+        padding: 7px; 
+        border-radius: 5px; 
+        font-size: 15px; 
+        font-weight: bolder; 
+        color: #cecdcd; 
+        border: 2px solid #3f3f3f; 
+        background-color: #72727283; 
+        transition-property: background-color; 
+        transition-duration: 0.3s;
+
+        &:hover {
+          background-color: #96969683; 
+        }
+      }
+
+      .choose-categories-list-wpapper {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        display: flex; 
+        justify-content: start; 
+        align-items: center; 
+        flex-direction: column; 
+        width: 100%;
+        margin-top: 10px; 
+        max-height: 300%; 
+        overflow: scroll; 
+
+        .choose-categories-list-item {
+          top: 0; 
+          background-color: #2b2b2b;
+          color: #dfdfdf; 
+          padding: 5px 10px 5px 10px;
+          width: 100%; 
+          border: 1px solid #7c7c7c; 
+          border-top: 0.5px solid #7c7c7c; 
+          border-bottom: 0.5px solid #7c7c7c; 
+          overflow: hidden; 
+          text-align: center;
+          max-width: 70%; 
+          min-height: 30px; 
+          transition-property: background-color; 
+          transition-duration: 0.3s;
+
+          &:hover {
+            background-color: #6b6b6b;
+          } 
+        }
+      }
+  }
+}
   .textarea-wrapper {
     display: flex; 
     justify-content: end;
@@ -588,6 +690,19 @@ button {
   .card {
     min-width: 80vw; 
     max-width: 80vw;
+  } 
+
+  h3 {
+    font-size: 15px; 
+  } 
+
+  .change-card-modal-content-wrapper .image-modal-wrapper {
+    width: 100%; 
+  }
+  .change-card-modal-content-wrapper .input-title-wrapper, .change-card-modal-content-wrapper .input-description-wrapper, .change-card-modal-content-wrapper .input-urls-wrapper {
+    flex-direction: column; 
+    gap: 10px; 
+    width: 100%; 
   }
 }
 

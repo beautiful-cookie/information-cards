@@ -18,7 +18,7 @@
         <div class="input-description-wrapper">
           <span><h3>Описание:</h3></span>
           <span class="textarea-wrapper">
-            <textarea rows="1" placeholder="Введите описание..." v-model="inputDescription"></textarea>
+            <textarea rows="3" placeholder="Введите описание..." v-model="inputDescription"></textarea>
           </span>
         </div>
 
@@ -76,83 +76,7 @@
   opacity: 0;
 }
 
-.category-div {
-  position: relative;
-  display: flex; 
-  justify-content: start;
-  align-items: center; 
-  flex-direction: column;
-  width: 100%; 
-} 
 
-.choose-category-wrapper { 
-  display: flex; 
-  justify-content: start;
-  align-items: center; 
-  flex-direction: column; 
-
-  width: 70%; 
-
-  .choose-category-content { 
-    display: flex; 
-    justify-content: start;
-    align-items: center; 
-    flex-direction: column;  
-    width: 100%; 
-
-    .chooseCategoryButton {
-        font-size: 14px;
-        padding: 7px; 
-        border-radius: 5px; 
-        font-size: 15px; 
-        font-weight: bolder; 
-        color: #cecdcd; 
-        border: 2px solid #3f3f3f; 
-        background-color: #72727283; 
-        transition-property: background-color; 
-        transition-duration: 0.3s;
-
-        &:hover {
-          background-color: #96969683; 
-        }
-      }
-
-      .choose-categories-list-wpapper {
-        position: absolute;
-        top: 30px;
-        left: 0;
-        display: flex; 
-        justify-content: start; 
-        align-items: center; 
-        flex-direction: column; 
-        width: 100%;
-        margin-top: 10px; 
-        max-height: 300%; 
-        overflow: scroll; 
-
-        .choose-categories-list-item {
-          top: 0; 
-          background-color: #2b2b2b;
-          color: #dfdfdf; 
-          padding: 5px 10px 5px 10px;
-          width: 100%; 
-          border: 1px solid #7c7c7c; 
-          border-top: 0.5px solid #7c7c7c; 
-          border-bottom: 0.5px solid #7c7c7c; 
-          overflow: hidden; 
-          text-align: center;
-          max-width: 70%; 
-          min-height: 30px; 
-          transition-property: background-color; 
-          transition-duration: 0.3s;
-
-          &:hover {
-            background-color: #6b6b6b;
-          } 
-        }
-      }
-  }
-}
 </style>
 
 <style lang="scss" scoped> 
@@ -217,6 +141,7 @@ span {
     gap: 10%; 
     
     .textarea-wrapper {
+      width: 100%; 
       max-width: 100%; 
       min-width: 59%; 
     } 
@@ -373,6 +298,84 @@ span {
     } 
   }
 
+  .category-div {
+  position: relative;
+  display: flex; 
+  justify-content: start;
+  align-items: center; 
+  flex-direction: column;
+  width: 100%; 
+} 
+
+.choose-category-wrapper { 
+  display: flex; 
+  justify-content: start;
+  align-items: center; 
+  flex-direction: column; 
+
+  width: 70%; 
+
+  .choose-category-content { 
+    display: flex; 
+    justify-content: start;
+    align-items: center; 
+    flex-direction: column;  
+    width: 100%; 
+
+    .chooseCategoryButton {
+        font-size: 14px;
+        padding: 7px; 
+        border-radius: 5px; 
+        font-size: 15px; 
+        font-weight: bolder; 
+        color: #cecdcd; 
+        border: 2px solid #3f3f3f; 
+        background-color: #72727283; 
+        transition-property: background-color; 
+        transition-duration: 0.3s;
+
+        &:hover {
+          background-color: #96969683; 
+        }
+      }
+
+      .choose-categories-list-wpapper {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        display: flex; 
+        justify-content: start; 
+        align-items: center; 
+        flex-direction: column; 
+        width: 100%;
+        margin-top: 10px; 
+        max-height: 300%; 
+        overflow: scroll; 
+
+        .choose-categories-list-item {
+          top: 0; 
+          background-color: #2b2b2b;
+          color: #dfdfdf; 
+          padding: 5px 10px 5px 10px;
+          width: 100%; 
+          border: 1px solid #7c7c7c; 
+          border-top: 0.5px solid #7c7c7c; 
+          border-bottom: 0.5px solid #7c7c7c; 
+          overflow: hidden; 
+          text-align: center;
+          max-width: 70%; 
+          min-height: 30px; 
+          transition-property: background-color; 
+          transition-duration: 0.3s;
+
+          &:hover {
+            background-color: #6b6b6b;
+          } 
+        }
+      }
+  }
+}
+
 
   .add-card-button {
     background-color: transparent;
@@ -421,10 +424,37 @@ span {
   width: 50px; 
   height: 50px;  
 
-  .material-icons.addPlus {
-    font-size: 30px; 
+    .material-icons.addPlus {
+      font-size: 30px; 
+    }
+  }
+} 
+
+
+@media screen and (max-width: 700px) {
+  .card {
+    max-width: 60vw;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .card {
+    min-width: 80vw; 
+    max-width: 80vw;
+  } 
+
+  h3 {
+    font-size: 15px; 
+  } 
+
+  .card-modal-content-wrapper .image-modal-wrapper {
+    width: 100%; 
+  }
+  .card-modal-content-wrapper .input-title-wrapper, .card-modal-content-wrapper .input-description-wrapper, .card-modal-content-wrapper .input-urls-wrapper {
+    flex-direction: column; 
+    gap: 10px; 
+    width: 100%; 
+  }
 }
 </style>
 

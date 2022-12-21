@@ -41,7 +41,7 @@
     }
 
     .content {
-        margin-top: 20px;
+        margin-top: small;
         width: 100%; 
         height: 100%; 
     } 
@@ -50,6 +50,10 @@
 @media screen and (max-width: 600px) {
     .card-modal-wrapper { 
         width: 400px; 
+    }
+
+    .title-wrapper h3 {
+        font-size: 16px; 
     }
 }
 

@@ -5,7 +5,7 @@
       :key="card.id" 
     >
 
-      <Card :card="card" @deleteCard="ToDeleteCard" />
+      <Card :card="card" @deleteCard="ToDeleteCard" @updateCards="saveCardsInLocal" />
       
   </div> 
 
@@ -28,7 +28,7 @@ export default {
     }
   }, 
   created() { 
-    this.cards = this.getCardsFromLocal().length > 0 ? this.getCardsFromLocal() : this.getStartCards() 
+    this.cards = this.getCardsFromLocal() 
     this.showedCards = this.cards 
     this.saveCardsInLocal() 
     this.routesFilter() 
@@ -75,20 +75,6 @@ export default {
         if (!storage) return [] 
         return JSON.parse(storage) 
       }, 
-      getStartCards() {
-        return [
-          {
-            category: 'Избранное', imgSrc: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Foboifullhd.ru%2F_ph%2F16%2F596751958.jpg%3F1625782729&f=1&nofb=1&ipt=a0a49fe2db887543b78eade346d76ad22279e37eb28cdd0da0351b242aafed00&ipo=images', 
-            title: 'Новое событие 1', description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus inventore reiciendis dolore in delectus cum voluptates quam sit labore molestias, dignissimos iusto! Voluptatem, explicabo in suscipit architecto dolorem eius ut.', 
-            urls: ['https://google.com', 'https://yandex.ru'], id: Date.now()
-          }, 
-          {
-            category: 'Важное', imgSrc: undefined, 
-            title: 'Новое событие 2', description: 'Какое-то описание 2', 
-            urls: ['https://ru.m.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D0%B8%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F:%D0%9D%D0%B5%D0%BE%D0%B1%D1%8B%D1%87%D0%BD%D1%8B%D0%B5_%D1%81%D1%82%D0%B0%D1%82%D1%8C%D0%B8'], id: Date.now() + 1
-          }
-        ] 
-      }
     } 
 
 }
