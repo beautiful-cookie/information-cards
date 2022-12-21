@@ -72,6 +72,23 @@
                     </div>
                   </div>
 
+                  <div class="choose-category-wrapper">
+                    <div class="choose-category-content">
+                      <span class="category-div">
+                        <input type="button" class="chooseCategoryButton" @click="toggleShowChooseCategory" v-model="choosedChangeCategory">
+                        <transition name="fade">
+                            <ol class="choose-categories-list-wpapper" v-if="showChooseChangeCategory">
+                              <li v-for="categorie of changeCategories" :key="categorie.id"
+                                class="choose-categories-list-item" @click="chooseCategory(categorie.title)"
+                                >
+                                {{categorie.title}}
+                              </li>
+                          </ol>
+                        </transition>
+                      </span>
+                    </div>
+                  </div>
+
                   <button class="change-card-button" @click="changeCard">Изменить</button>
                 </div> 
               </ChangeCardModal>  
@@ -97,10 +114,14 @@ export default {
       showDescriprion: false, 
       showUrls: false, 
       showChangeCard: false, 
+      showChooseChangeCategory: false, 
+      changeCategories: null, 
       changeInputImage: '', 
       changeInputTitle: '', 
       changeInputDescription: '', 
       changeInputUrls: '', 
+      choosedChangeCategory: '', 
+      changeInputCategory: '', 
       urlsToChange: [] 
     } 
   }, 
@@ -112,6 +133,8 @@ export default {
     this.changeInputTitle = this.card.title 
     this.changeInputDescription = this.card.description 
     this.urlsToChange = this.card.urls[0] 
+    this.choosedChangeCategory = this.card.category 
+    this.changeCategories = this.getCategoriesFromLocal() 
   }, 
   props: {
     card: {
@@ -132,6 +155,7 @@ export default {
       this.card.description = this.changeInputDescription 
       this.card.urls[0] = this.urlsToChange 
       this.showChangeCard = false 
+      this.card.category = this.changeInputCategory 
     }, 
     fixUrl(url) {
       return url.url.includes('https://') ? url.url : `https://${url.url}`
@@ -151,6 +175,19 @@ export default {
       }
       this.changeInputUrls = '' 
     }, 
+    toggleShowChooseCategory() {
+      this.showChooseChangeCategory = !this.showChooseChangeCategory 
+    }, 
+    chooseCategory(title) {
+      this.choosedChangeCategory = title 
+      this.changeInputCategory = title 
+      this.showChooseChangeCategory = false 
+    }, 
+    getCategoriesFromLocal() {
+      const storage = localStorage.getItem('categories')
+      if (!storage) return [] 
+      return JSON.parse(storage) 
+    } 
   }
 }
 </script>
