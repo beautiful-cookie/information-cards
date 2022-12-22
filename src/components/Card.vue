@@ -133,11 +133,11 @@ export default {
     this.changeInputTitle = this.card.title 
     this.changeInputDescription = this.card.description 
     this.urlsToChange = this.card.urls[0] 
-    this.choosedChangeCategory = this.card.category 
+    this.choosedChangeCategory = this.card.category !== '' ? this.card.category : 'Выбрать категорию'
     this.changeCategories = this.getCategoriesFromLocal() 
   }, 
   watch: {
-    showChooseCategory() {
+    showChooseChangeCategory() {
       this.changeCategories = this.getCategoriesFromLocal() 
     } 
   }, 
