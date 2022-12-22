@@ -1,7 +1,7 @@
 <template>
     <div class="categories-wrapper"> 
         <div class="categories-item-wrapper" v-for="categorie of categories" :key="categorie.id">
-            <router-link class="categories-item" :to="'/' + categorie.title.toLowerCase()">
+            <router-link class="categories-item" :to="'/information-cards/' + categorie.title.toLowerCase()">
                 <span>
                     <i @click.prevent.stop="deleteCategorie(categorie)" class="material-icons closeCross">close</i>
                 </span>

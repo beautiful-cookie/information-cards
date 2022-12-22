@@ -11,7 +11,9 @@
 
   <AddCardVue @addCard="addCard" />
 
-  <footer></footer>
+  <footer>
+    <div class="deleteCards" v-if="this.cards.length > 0" @click="deleteNotes">Удалить все заметки</div>
+  </footer>
   </div> 
 </template>
 
@@ -24,12 +26,14 @@ export default {
   data() {
     return {
       cards: null, 
-      showedCards: null 
+      showedCards: null, 
+      saveArr: this.cards 
     }
   }, 
   created() { 
     this.cards = this.getCardsFromLocal() 
     this.showedCards = this.cards 
+    console.log(this.cards.length)
     this.saveCardsInLocal() 
     this.routesFilter() 
   }, 
@@ -67,6 +71,11 @@ export default {
         this.showedCards = this.cards 
         this.saveCardsInLocal() 
       }, 
+      deleteNotes() { 
+        this.cards = this.cards.filter(card => 1 == 0) 
+        this.showedCards = this.cards 
+        this.saveCardsInLocal() 
+      }, 
       saveCardsInLocal() {
         localStorage.setItem('cards', JSON.stringify(this.cards))
       }, 
@@ -93,7 +102,29 @@ export default {
 } 
 
 footer {
-  width: 100vw;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100vw; 
   height: 20vh; 
+
+  .deleteCards { 
+    width: 70%; 
+    max-width: 500px; 
+    height: auto;
+    text-align: center; 
+    background-color: rgb(105, 9, 9); 
+    color: #cecece; 
+    font-size: large; 
+    font-weight: 500;  
+    border-radius: 10px; 
+    padding: 10px 5px 10px 5px; 
+    transition: background-color, text-shadow, 0.5s;
+
+    &:hover {
+      background-color: rgb(170, 10, 10); 
+      text-shadow: 0 0 5px #cecece; 
+    }
+  }
 }
 </style>
